@@ -1,0 +1,69 @@
+# depslib dependency file v1.0
+1394097298 source:f:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	<string>
+	<cstdio>
+	<windows.h>
+	<cstdlib>
+	<conio.h>
+	"alex.h"
+
+1393264889 f:\joc_sdl\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1395302956 source:e:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1393264889 e:\joc_sdl\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1395080473 source:i:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1398171632 source:d:\sursa joc sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1399473042 source:e:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1398326072 source:d:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1399472618 source:f:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+

@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1398866764 source:f:\sursa joc sdl + shop\a\shop1.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	<cstdlib>
+	<conio.h>
+	"alex.h"
+
+1393268489 f:\sursa joc sdl + shop\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
