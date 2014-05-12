@@ -33,3 +33,11 @@
 	<cstdio>
 	<ctime>
 
+1399547497 source:f:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+

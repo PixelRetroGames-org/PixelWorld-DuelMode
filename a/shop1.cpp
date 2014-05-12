@@ -7,14 +7,16 @@
 #include<cstdlib>
 #include<conio.h>
 #include "alex.h"
-int player_money,player_xp;
-int player_items[10][10],prices[10][10];
+int player2_money,player_money,player_xp,player2_xp;
+int player2_items[10][10],prices[10][10];
+int player2_items_equipped[7],player_items_equipped[7];
 SDL_Surface *background,*screen,*image;
 TTF_Font *font=NULL;
+int player2_attack,player2_block,player2_fire_res,player2_fire_dmg;
 void load_prices()
 {
  int i,j;
- FILE *prc=fopen("player_prices.prc","r");
+ FILE *prc=fopen("player2_prices.prc","r");
  for(j=1;j<=5;j++)
 	{
 	 for(i=1;i<=4;i++)
@@ -114,7 +116,7 @@ void print_main_layer()
  image=SDL_LoadBMP("inventory_potion.bmp");
  apply_surface(0,80,image,screen);
 }
-void load_save_player(char *nume_salvare)
+void load_save_player2(char *nume_salvare)
 {
  char nume_salvare1[100];
  memset(nume_salvare1,0,100);
@@ -134,11 +136,11 @@ void load_save_player(char *nume_salvare)
      fclose(salvare);
      salvare=fopen(nume_salvare1,"r");
     }
- fscanf(salvare,"%d %d ",&player_money,&player_xp);
+ fscanf(salvare,"%d %d ",&player2_money,&player2_xp);
  for(int j=1;j<=5;j++)
      for(int i=1;i<=4;i++)
          {
-		fscanf(salvare,"%d",&player_items[i][j]);
+		fscanf(salvare,"%d",&player2_items[i][j]);
          }
 }
 void print_player_info(bool pp)
@@ -152,21 +154,23 @@ void print_player_info(bool pp)
  message=TTF_RenderText_Solid(font,"Player 2",color1);
  apply_surface(0,0,message,screen);
  if(pp==true)
-    load_save_player("player");
+    load_save_player2("player2");
  color1={174,0,0};
  message=TTF_RenderText_Solid(font,"Experience: ",color1);
  apply_surface(230,0,message,screen);
- print_xp(player_xp,0,13);
+ print_xp(player2_xp,0,13);
  color1={255,194,0};
  message=TTF_RenderText_Solid(font,"Money: ",color1);
  apply_surface(700,0,message,screen);
- print_money(player_money,0,22);
+ print_money(player2_money,0,22);
  SDL_Flip(screen);
 }
-void print_shop()
+void print_shop(int m,int n)
 {
  TTF_Font *font1=TTF_OpenFont("font1.ttf",40);
  SDL_Color color1={255,190,0};
+ TTF_Font *font2=TTF_OpenFont("font1.ttf",20);
+ SDL_Color color2={255,294,10};
  image=SDL_LoadBMP("inventory_lvl1_helmet.bmp");
  apply_surface(0,80,image,screen);
  int a=prices[1][1];
@@ -632,11 +636,23 @@ void print_shop()
     }
  image=TTF_RenderText_Solid(font1,v1,color1);
  apply_surface(640,520,image,screen);
+ for(int y=1;y<=n;y++)
+     for(int x=1;x<=m;x++)
+         {
+         	if(player2_items[x][y]==1)
+         	   {
+		    image=TTF_RenderText_Solid(font2,"x1",color2);
+		    //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+		    apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+         	   }
+         }
 }
 void shop(int m,int n)
 {
  int x=1,y=1,exit=0,down,up,left,right,enter;
+ SDL_Color color1={255,194,10},color2={255,294,10};
  SDL_Surface *image;
+ TTF_Font *font2=TTF_OpenFont("font1.ttf",20);
  while(exit==0)
 	  {
 	   exit=getkey(VK_ESCAPE);
@@ -650,7 +666,7 @@ void shop(int m,int n)
 	   apply_surface((y-1)*160+160,x*80+(x-1)*40,image,screen);
 	   image=SDL_LoadBMP("horizontal_black_item_layer.bmp");
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
-        apply_surface((y-1)*160,x*80+(x-1)*40+80,image,screen);
+        apply_surface((y-1)*160,x*80+(x-1)*40+80-3,image,screen);
         if(up==1 && y>=2)
 	      y--;
         if(left==1 && x>=2)
@@ -664,22 +680,25 @@ void shop(int m,int n)
         apply_surface((y-1)*160+160,x*80+(x-1)*40,image,screen);
         image=SDL_LoadBMP("horizontal_item_layer.bmp");
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
-        apply_surface((y-1)*160,x*80+(x-1)*40+80,image,screen);
+        apply_surface((y-1)*160,x*80+(x-1)*40+80-3,image,screen);
         SDL_Flip(screen);
         enter=getkey(VK_RETURN);
         if(enter==1)
            {
-            if(player_money>=prices[x][y] && player_items[x][y]==0)
-			{
-			 player_money-=prices[x][y];
-			 player_items[x][y]=1;
-			 print_player_info(false);
-			}
+            if(player2_money>=prices[x][y] && player2_items[x][y]==0)
+			   {
+			    player2_money-=prices[x][y];
+			    player2_items[x][y]=1;
+			    print_player_info(false);
+                   image=TTF_RenderText_Solid(font2,"x1",color2);
+                   //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+                   apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+			   }
            }
         SDL_Delay(100);
        }
 }
-void save_player(char *nume_salvare)
+void save_player2(char *nume_salvare)
 {
  char nume_salvare1[100];
  memset(nume_salvare1,0,100);
@@ -692,12 +711,12 @@ void save_player(char *nume_salvare)
  nume_salvare1[nr+4]=NULL;
  nr+=4;
  FILE *salvare=fopen(nume_salvare1,"w");
- fprintf(salvare,"%d\n%d\n",player_money,player_xp);
+ fprintf(salvare,"%d\n%d\n",player2_money,player2_xp);
  for(int j=1;j<=5;j++)
      {
-	 for(int i=1;i<=4;i++)
+	  for(int i=1;i<=4;i++)
           {
-	 	 fprintf(salvare,"%d\n",player_items[i][j]);
+	 	 fprintf(salvare,"%d\n",player2_items[i][j]);
           }
       fprintf(salvare,"\n");
      }
@@ -705,16 +724,16 @@ void save_player(char *nume_salvare)
 int main(int argc,char* args[])
 {
  SDL_Init(SDL_INIT_EVERYTHING);
- screen=SDL_SetVideoMode(0,0,32,SDL_SWSURFACE);
+ screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  background=SDL_LoadBMP("wooden_background.bmp");
  apply_surface(0,0,background,screen);
  //print_main_layer();
  load_prices();
  print_player_info(true);
- print_shop();
+ print_shop(4,5);
  SDL_Flip(screen);
  shop(4,5);
- save_player("player");
+ save_player2("player2");
  //SDL_Delay(1000);
 return 0;
 }

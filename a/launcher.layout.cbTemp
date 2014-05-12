@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="shop.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="3666" topLine="127" />
+	<File name="launcher.cpp" open="1" top="1" tabpos="0">
+		<Cursor position="1320" topLine="12" />
 	</File>
 </CodeBlocks_layout_file>

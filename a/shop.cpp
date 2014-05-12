@@ -165,10 +165,12 @@ void print_player_info(bool pp)
  print_money(player1_money,0,22);
  SDL_Flip(screen);
 }
-void print_shop()
+void print_shop(int m,int n)
 {
  TTF_Font *font1=TTF_OpenFont("font1.ttf",40);
  SDL_Color color1={255,190,0};
+ TTF_Font *font2=TTF_OpenFont("font1.ttf",20);
+ SDL_Color color2={255,294,10};
  image=SDL_LoadBMP("inventory_lvl1_helmet.bmp");
  apply_surface(0,80,image,screen);
  int a=prices[1][1];
@@ -634,6 +636,16 @@ void print_shop()
     }
  image=TTF_RenderText_Solid(font1,v1,color1);
  apply_surface(640,520,image,screen);
+ for(int y=1;y<=n;y++)
+     for(int x=1;x<=m;x++)
+         {
+         	if(player1_items[x][y]==1)
+         	   {
+		    image=TTF_RenderText_Solid(font2,"x1",color2);
+		    //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+		    apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+         	   }
+         }
 }
 void shop(int m,int n)
 {
@@ -678,9 +690,9 @@ void shop(int m,int n)
 			    player1_money-=prices[x][y];
 			    player1_items[x][y]=1;
 			    print_player_info(false);
-                image=TTF_RenderText_Solid(font2,"x1",color2);
-                //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
-                apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+                   image=TTF_RenderText_Solid(font2,"x1",color2);
+                   //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+                   apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
 			   }
            }
         SDL_Delay(100);
@@ -718,7 +730,7 @@ int main(int argc,char* args[])
  //print_main_layer();
  load_prices();
  print_player_info(true);
- print_shop();
+ print_shop(4,5);
  SDL_Flip(screen);
  shop(4,5);
  save_player1("player1");

@@ -17,7 +17,7 @@
 	<cstdlib>
 	<conio.h>
 
-1399547585 source:e:\sursa joc sdl + shop\a\shop.cpp
+1399729412 source:e:\sursa joc sdl + shop\a\shop.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_mixer.h"
@@ -61,6 +61,22 @@
 	<windows.h>
 
 1393268489 f:\sursa joc sdl + shop\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1399729412 source:g:\sursa joc sdl + shop\a\shop.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	<cstdlib>
+	<conio.h>
+	"alex.h"
+
+1393268489 g:\sursa joc sdl + shop\a\alex.h
 	<conio.h>
 	<stdlib.h>
 	<windows.h>
