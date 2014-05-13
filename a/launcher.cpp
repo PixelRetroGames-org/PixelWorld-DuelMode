@@ -23,7 +23,7 @@ int main( int argc, char* args[] )
   image1_bold=SDL_LoadBMP("image1_bold.bmp");
   image2=SDL_LoadBMP("image2.bmp");
   image2_bold=SDL_LoadBMP("image2_bold.bmp");
-  background=SDL_LoadBMP("wooden_background.bmp");
+  background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
   apply_surface(450,500-80,image1_bold,screen);
   apply_surface(450,500,image2,screen);
