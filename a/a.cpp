@@ -571,7 +571,7 @@ int main( int argc, char* args[] )
     Mix_PlayMusic(music, -1 );
  load_level("a");
  print_level();
- welcome_message();
+ //welcome_message();
  clear=SDL_LoadBMP("clear.bmp");
  print_background();
  burn=SDL_LoadBMP("fire.bmp");

@@ -81,7 +81,7 @@
 	<stdlib.h>
 	<windows.h>
 
-1400165776 source:c:\documents and settings\alexx\a\a.cpp
+1400182201 source:c:\documents and settings\alexx\a\a.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_mixer.h"

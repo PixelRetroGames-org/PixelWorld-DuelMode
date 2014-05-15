@@ -78,7 +78,7 @@ int main( int argc, char* args[] )
                      apply_surface(0,0,message,screen);
                      message=TTF_RenderText_Solid(font,"PIXEL RETRO GAMES COMPANY ",color2);
                      apply_surface(400,0,message,screen);
-                     message=TTF_RenderText_Solid(font,"2012-2013",color1);
+                     message=TTF_RenderText_Solid(font,"2013-2014",color1);
                      apply_surface(600,50,message,screen);
 
                      message=TTF_RenderText_Solid(font,"Owners: ",color1);
