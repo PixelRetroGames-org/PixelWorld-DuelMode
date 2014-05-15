@@ -8,6 +8,7 @@
 #include<cstdio>
 #define HP1 100
 #include<ctime>
+#include "alex.h"
 /***
  NOTE: Player1 is really Player1
        Player is actually Player2
@@ -526,15 +527,19 @@ void print_mana(int a,int lin,int col)
 }
 void welcome_message()
 {
- SDL_Surface *message1=TTF_RenderText_Solid(font,"Welcome to Pixel World : Duel Mode! ",color2);
- apply_surface(320,160,message1,screen);
+ SDL_Surface *message1=TTF_RenderText_Solid(font,"Welcome to Pixel World:Duel Mode! ",color2);
+ apply_surface(280,160,message1,screen);
  SDL_FreeSurface(message1);
- SDL_Surface *message2=TTF_RenderText_Solid(font,"Code: Alex Cioltan ",color2);
- apply_surface(320,200,message2,screen);
- SDL_Surface *message3=TTF_RenderText_Solid(font,"Graphics: Stefan Enescu and Alex Cioltan",color2);
- apply_surface(320,240,message3,screen);
+ SDL_Surface *message2=TTF_RenderText_Solid(font,"Code:Alex Cioltan and Stefan Enescu ",color2);
+ apply_surface(280,200,message2,screen);
+ SDL_Surface *message3=TTF_RenderText_Solid(font,"Graphics: Stefan Enescu,",color2);
+ apply_surface(280,240,message3,screen);
+ SDL_Surface *message4=TTF_RenderText_Solid(font,"Alex Cioltan, Victor Ionescu and",color2);
+ apply_surface(280,280,message4,screen);
+ message4=TTF_RenderText_Solid(font,"Duta Alexandru",color2);
+ apply_surface(280,320,message4,screen);
  SDL_Flip(screen);
- SDL_Delay(2000);
+ while(getkey(VK_RETURN)==0);
 }
 void put_arena_wall()
 {
@@ -558,16 +563,16 @@ int main( int argc, char* args[] )
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
  screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  TTF_Init();
- font=TTF_OpenFont("font.ttf",40);
+ font=TTF_OpenFont("font2.ttf",40);
  music=Mix_LoadMUS("bck.wav");
  clear=SDL_LoadBMP("wooden_background.bmp");
  apply_surface(0,0,clear,screen);
  if(mute==0)
     Mix_PlayMusic(music, -1 );
- clear=SDL_LoadBMP("clear.bmp");
  load_level("a");
  print_level();
  welcome_message();
+ clear=SDL_LoadBMP("clear.bmp");
  print_background();
  burn=SDL_LoadBMP("fire.bmp");
  background=SDL_LoadBMP("name_background.bmp");
@@ -892,7 +897,7 @@ int main( int argc, char* args[] )
                 player1=SDL_LoadBMP("warrior1_on_grass.bmp");
                }
            }
-        SDL_Delay(30);
+        SDL_Delay(50);
         apply_surface((player1_col+COL_START)*40,player1_lin*40,player1,screen);
         SDL_Flip(screen);
         SDL_PumpEvents();

@@ -6,6 +6,7 @@
 #include "alex.h"
 #define N 2
 SDL_Surface *screen,*image1,*image1_bold,*image2,*image2_bold,*background;
+SDL_Color color1={0,900,0},color2={450,0,0},color3{240,240,70};
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
 {
  SDL_Rect offset;
@@ -15,18 +16,21 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
  SDL_Flip(screen);
 }
 int up,down,poz=1;
+TTF_Font *font=NULL;
 int main( int argc, char* args[] )
 {
   SDL_Init(SDL_INIT_EVERYTHING);
+  TTF_Init();
+  font=TTF_OpenFont("font2.ttf",50);
   screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
-  image1=SDL_LoadBMP("image1.bmp");
-  image1_bold=SDL_LoadBMP("image1_bold.bmp");
-  image2=SDL_LoadBMP("image2.bmp");
-  image2_bold=SDL_LoadBMP("image2_bold.bmp");
+  image1=TTF_RenderText_Solid(font,"Single Player Mode ",color1);
+  image1_bold=TTF_RenderText_Solid(font,"Single Player Mode ",color2);
+  image2=TTF_RenderText_Solid(font,"Duel Mode ",color1);
+  image2_bold=TTF_RenderText_Solid(font,"Duel Mode",color2);
   background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
-  apply_surface(450,500-80,image1_bold,screen);
-  apply_surface(450,500,image2,screen);
+  apply_surface(450,600-80,image1_bold,screen);
+  apply_surface(450,600,image2,screen);
   SDL_Flip(screen);
   while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
            {
@@ -34,15 +38,15 @@ int main( int argc, char* args[] )
             down=getkey(VK_DOWN);
             if(up==1 && poz>1)
                {
-                apply_surface(450,500-80,image1_bold,screen);
+                apply_surface(450,600-80,image1_bold,screen);
                 poz--;
-                apply_surface(450,500,image2,screen);
+                apply_surface(450,600,image2,screen);
                }
             if(down==1 && poz<N)
                {
-                apply_surface(450,500,image2_bold,screen);
+                apply_surface(450,600,image2_bold,screen);
                 poz++;
-                apply_surface(450,500-80,image1,screen);
+                apply_surface(450,600-80,image1,screen);
                }
             SDL_Delay(100);
             SDL_Flip(screen);

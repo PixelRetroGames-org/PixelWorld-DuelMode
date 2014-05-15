@@ -150,7 +150,7 @@ void print_player_info(bool pp)
  message=SDL_LoadBMP("clear_player_info.bmp");
  apply_surface(0,0,message,screen);
  SDL_Color color1={0,900,0};
- font=TTF_OpenFont("font1.ttf",76);
+ font=TTF_OpenFont("font2.ttf",50);
  message=TTF_RenderText_Solid(font,"Player 1",color1);
  apply_surface(0,0,message,screen);
  if(pp==true)
@@ -161,15 +161,15 @@ void print_player_info(bool pp)
  print_xp(player1_xp,0,13);
  color1={255,194,0};
  message=TTF_RenderText_Solid(font,"Money: ",color1);
- apply_surface(700,0,message,screen);
- print_money(player1_money,0,22);
+ apply_surface(800,0,message,screen);
+ print_money(player1_money,0,26);
  SDL_Flip(screen);
 }
 void print_shop(int m,int n)
 {
- TTF_Font *font1=TTF_OpenFont("font1.ttf",40);
+ TTF_Font *font1=TTF_OpenFont("font2.ttf",40);
  SDL_Color color1={255,190,0};
- TTF_Font *font2=TTF_OpenFont("font1.ttf",20);
+ TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
  SDL_Color color2={255,294,10};
  image=SDL_LoadBMP("inventory_lvl1_helmet.bmp");
  apply_surface(0,80,image,screen);
@@ -652,7 +652,7 @@ void shop(int m,int n)
  int x=1,y=1,exit=0,down,up,left,right,enter;
  SDL_Color color1={255,194,10},color2={255,294,10};
  SDL_Surface *image;
- TTF_Font *font2=TTF_OpenFont("font1.ttf",20);
+ TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
  while(exit==0)
 	  {
 	   exit=getkey(VK_ESCAPE);

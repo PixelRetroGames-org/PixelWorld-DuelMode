@@ -67,3 +67,17 @@
 	<cstdio>
 	<ctime>
 
+1400140296 source:c:\users\elev\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400136571 c:\users\elev\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
