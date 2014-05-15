@@ -19,7 +19,7 @@ Mix_Music *music=NULL;
 SDL_Color textColor={0,900,200}, color1={0,900,0},color2={450,0,0},color3{240,240,70};
 TTF_Font *font=NULL;
 SDL_Surface *message=NULL,*clear=NULL,*burn=NULL,*player2=NULL;
-char pp,mute=1;
+char pp,mute=0;
 int player1_items[10][10];
 int player_items[10][10];
 int player1_items_equipped[7],player_items_equipped[7];
