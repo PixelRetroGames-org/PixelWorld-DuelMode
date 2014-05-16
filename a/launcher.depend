@@ -12,3 +12,29 @@
 	<stdlib.h>
 	<windows.h>
 
+1400139349 source:c:\users\elev\a\launcher.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	"alex.h"
+
+1400136571 c:\users\elev\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1400182033 source:c:\documents and settings\alexx\a\launcher.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	"alex.h"
+
+1393268489 c:\documents and settings\alexx\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
