@@ -4,6 +4,7 @@
 #include<string>
 #include<cstdio>
 #include "alex.h"
+#include<windows.h>
 #define N 3
 SDL_Surface *screen,*background;
 SDL_Surface *image[5][3],*message;
@@ -20,7 +21,7 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
 int up,down,poz=1;
 TTF_Font *font=NULL;
 int main( int argc, char* args[] )
-{
+{ mmain:
   SDL_Init(SDL_INIT_EVERYTHING);
   TTF_Init();
   font=TTF_OpenFont("font2.ttf",50);
@@ -37,6 +38,7 @@ int main( int argc, char* args[] )
   apply_surface(450,600,image[2][1],screen);
   apply_surface(450,680,image[3][1],screen);
   SDL_Flip(screen);
+  poz=1;
   while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
            {
             up=getkey(VK_UP);
@@ -107,6 +109,7 @@ int main( int argc, char* args[] )
                      message=TTF_RenderText_Solid(font,"Graphics",color1);
                      apply_surface(500,400,message,screen);
                      while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0);
+                     goto mmain;
                      break;
                     }
 	       }
