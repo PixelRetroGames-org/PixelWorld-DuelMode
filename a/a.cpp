@@ -393,10 +393,10 @@ void load_save_player(char *nume_salvare)
     sword=SDL_LoadBMP("lvl4_sword.bmp");
     }
  apply_surface(0,280,helmet,screen);
- apply_surface(0,320,chestplate,screen);
- apply_surface(0,360,trousers,screen);
- apply_surface(0,400,boots,screen);
- apply_surface(80,320,sword,screen);
+ apply_surface(0,360,chestplate,screen);
+ apply_surface(0,440,trousers,screen);
+ apply_surface(0,520,boots,screen);
+ apply_surface(80,360,sword,screen);
 }
 void save_player(char *nume_salvare)
 {
