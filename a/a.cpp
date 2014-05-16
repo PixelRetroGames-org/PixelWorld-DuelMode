@@ -39,6 +39,13 @@ SDL_Surface *player=NULL;
 SDL_Surface *player1=NULL;
 SDL_Surface *background=NULL;
 char file[100];
+void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
+{
+ SDL_Rect offset;
+ offset.x=x;
+ offset.y=y;
+ SDL_BlitSurface(source,NULL,destination,&offset);
+}
 int max(int a,int b)
 {
  if(a>b)
@@ -282,76 +289,114 @@ void load_save_player(char *nume_salvare)
         else
             if(player_items[1][5]==1)
                 player_items_equipped[5]=1;
+ SDL_Surface *helmet,*chestplate,*boots,*trousers,*sword;
  if(player_items_equipped[1]==1)
-    player_block+=10;
+    {
+     player_block+=10;
+     helmet=SDL_LoadBMP("lvl1_helmet.bmp");
+    }
  if(player_items_equipped[2]==1)
-    player_block+=10;
+    {
+     player_block+=10;
+     chestplate=SDL_LoadBMP("lvl1_chestplate.bmp");
+    }
  if(player_items_equipped[3]==1)
-    player_block+=10;
+    {
+     player_block+=10;
+     trousers=SDL_LoadBMP("lvl1_trousers.bmp");
+    }
  if(player_items_equipped[4]==1)
-    player_block+=10;
+    {
+     player_block+=10;
+     boots=SDL_LoadBMP("lvl1_boots.bmp");
+    }
  if(player_items_equipped[5]==1)
-    player_attack+=10;
+    {
+     player_attack+=10;
+     sword=SDL_LoadBMP("lvl1_sword.bmp");
+    }
  if(player_items_equipped[1]==2)
-    {player_block+=14;
-    player_fire_res+=3;
+    {
+     player_block+=14;
+     player_fire_res+=3;
+     helmet=SDL_LoadBMP("lvl2_helmet.bmp");
     }
  if(player_items_equipped[2]==2)
     {player_block+=14;
     player_fire_res+=3;
+    chestplate=SDL_LoadBMP("lvl2_chestplate.bmp");
     }
  if(player_items_equipped[3]==2)
     {player_block+=14;
     player_fire_res+=3;
+    trousers=SDL_LoadBMP("lvl2_trousers.bmp");
     }
  if(player_items_equipped[4]==2)
     {player_block+=14;
     player_fire_res+=3;
+    boots=SDL_LoadBMP("lvl2_boots.bmp");
     }
  if(player_items_equipped[5]==2)
     {player_attack+=15;
     player_fire_dmg+=3;
+    sword=SDL_LoadBMP("lvl2_sword.bmp");
     }
  if(player_items_equipped[1]==3)
     {player_block+=17;
     player_fire_res+=8;
+    helmet=SDL_LoadBMP("lvl3_helmet.bmp");
     }
  if(player_items_equipped[2]==3)
     {player_block+=17;
     player_fire_res+=8;
+    chestplate=SDL_LoadBMP("lvl3_chestplate.bmp");
     }
  if(player_items_equipped[3]==3)
     {player_block+=17;
     player_fire_res+=8;
+    trousers=SDL_LoadBMP("lvl3_trousers.bmp");
     }
  if(player_items_equipped[4]==3)
     {player_block+=17;
     player_fire_res+=8;
+    boots=SDL_LoadBMP("lvl3_boots.bmp");
     }
  if(player_items_equipped[5]==3)
     {player_attack+=17;
     player_fire_dmg+=7;
+    sword=SDL_LoadBMP("lvl3_sword.bmp");
     }
  if(player_items_equipped[1]==4)
-    {player_block+=20;
-    player_fire_res+=14;
+    {
+     player_block+=20;
+     player_fire_res+=14;
+     helmet=SDL_LoadBMP("lvl4_helmet.bmp");
     }
  if(player_items_equipped[2]==4)
     {player_block+=20;
     player_fire_res+=14;
+    chestplate=SDL_LoadBMP("lvl4_chestplate.bmp");
     }
  if(player_items_equipped[3]==4)
     {player_block+=20;
     player_fire_res+=14;
+    trousers=SDL_LoadBMP("lvl4_trousers.bmp");
     }
  if(player_items_equipped[4]==4)
     {player_block+=20;
     player_fire_res+=14;
+    boots=SDL_LoadBMP("lvl4_boots.bmp");
     }
  if(player_items_equipped[5]==4)
     {player_attack+=25;
     player_fire_dmg+=10;
+    sword=SDL_LoadBMP("lvl4_sword.bmp");
     }
+ apply_surface(0,280,helmet,screen);
+ apply_surface(0,320,chestplate,screen);
+ apply_surface(0,360,trousers,screen);
+ apply_surface(0,400,boots,screen);
+ apply_surface(80,320,sword,screen);
 }
 void save_player(char *nume_salvare)
 {
@@ -398,13 +443,6 @@ void save_player1(char *nume_salvare)
           }
       fprintf(salvare,"\n");
      }
-}
-void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
-{
- SDL_Rect offset;
- offset.x=x;
- offset.y=y;
- SDL_BlitSurface(source,NULL,destination,&offset);
 }
 void put_back(int l,int c)
 {
