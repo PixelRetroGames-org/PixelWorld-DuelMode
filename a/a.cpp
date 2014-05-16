@@ -19,7 +19,7 @@ Mix_Music *music=NULL;
 SDL_Color textColor={0,900,200}, color1={0,900,0},color2={450,0,0},color3{240,240,70};
 TTF_Font *font=NULL;
 SDL_Surface *message=NULL,*clear=NULL,*burn=NULL,*player2=NULL;
-char pp,mute=1;
+char pp,mute=0;
 int player1_items[10][10];
 int player_items[10][10];
 int player1_items_equipped[7],player_items_equipped[7];
@@ -121,17 +121,17 @@ void load_save_player1(char *nume_salvare)
         else
             if(player1_items[4][1]==1)
                 player1_items_equipped[4]=1;
- if(player1_items[1][5]==1)
-    player1_items_equipped[5]=1;
+ if(player1_items[4][5]==1)
+    player1_items_equipped[5]=4;
  else
-    if(player1_items[2][5]==1)
-        player1_items_equipped[5]=2;
+    if(player1_items[3][5]==1)
+        player1_items_equipped[5]=3;
     else
-        if(player1_items[3][5]==1)
-            player1_items_equipped[5]=3;
+        if(player1_items[2][5]==1)
+            player1_items_equipped[5]=2;
         else
-            if(player1_items[4][5]==1)
-                player1_items_equipped[5]=4;
+            if(player1_items[1][5]==1)
+                player1_items_equipped[5]=1;
  if(player1_items_equipped[1]==1)
     player1_block+=10;
  if(player1_items_equipped[2]==1)
@@ -271,16 +271,16 @@ void load_save_player(char *nume_salvare)
         else
             if(player_items[4][4]==1)
                 player_items_equipped[4]=1;
- if(player_items[1][5]==1)
+ if(player_items[4][5]==1)
     player_items_equipped[5]=4;
  else
-    if(player_items[2][5]==1)
+    if(player_items[3][5]==1)
         player_items_equipped[5]=3;
     else
-        if(player_items[3][5]==1)
+        if(player_items[2][5]==1)
             player_items_equipped[5]=2;
         else
-            if(player_items[4][5]==1)
+            if(player_items[1][5]==1)
                 player_items_equipped[5]=1;
  if(player_items_equipped[1]==1)
     player_block+=10;
@@ -571,7 +571,7 @@ int main( int argc, char* args[] )
     Mix_PlayMusic(music, -1 );
  load_level("a");
  print_level();
- welcome_message();
+ //welcome_message();
  clear=SDL_LoadBMP("clear.bmp");
  print_background();
  burn=SDL_LoadBMP("fire.bmp");
@@ -698,8 +698,8 @@ int main( int argc, char* args[] )
             player=SDL_LoadBMP("warrior_on_grass_left.bmp");
             if(obs[player_lin][player_col-1]==3)
                {
-			    permission_basic_player=1;
-			    player1_hp-=10+player_attack/10-player1_block/10;
+			 permission_basic_player=1;
+			 player1_hp-=10+player_attack/10-player1_block/10;
                 print_hp(player1_hp,1,0);
                 Mix_PlayChannel(-1, sound, 0);
                }
