@@ -19,7 +19,7 @@ void load_prices()
  FILE *prc=fopen("player1_prices.prc","r");
  for(j=1;j<=5;j++)
 	{
-	 for(i=1;i<=4;i++)
+	 for(i=1;i<=5;i++)
 		fscanf(prc,"%d",&prices[i][j]);
 	}
  fclose(prc);
