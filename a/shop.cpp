@@ -19,9 +19,12 @@ void load_prices()
  FILE *prc=fopen("player1_prices.prc","r");
  for(j=1;j<=5;j++)
 	{
-	 for(i=1;i<=5;i++)
+	 for(i=1;i<=4;i++)
 		fscanf(prc,"%d",&prices[i][j]);
 	}
+ for(i=5;i<=5;i++)
+     for(j=1;j<=5;j++)
+         fscanf(prc,"%d",&prices[i][j]);
  fclose(prc);
 }
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
@@ -142,6 +145,9 @@ void load_save_player1(char *nume_salvare)
          {
 		fscanf(salvare,"%d",&player1_items[i][j]);
          }
+ for(int i=5;i<=5;i++)
+     for(int j=1;j<=5;j++)
+         fscanf(salvare,"%d ",&player1_items[i][j]);
 }
 void print_player_info(bool pp)
 {
@@ -646,6 +652,160 @@ void print_shop(int m,int n)
 		    apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
          	   }
          }
+ /**
+ Potions and amulets
+ **/
+ image=SDL_LoadBMP("inventory_life_potion.bmp");
+ apply_surface(0,560,image,screen);
+ a=prices[5][1];
+ i=0,i1,j;
+ if(a<0)
+    a=0;
+ v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+ v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+ while(a!=0)
+       {
+        i++;
+        v[i]=a%10+'0';
+        a/=10;
+       }
+ for(i1=0,j=i;j>=1;i1++,j--)
+     v1[i1]=v[j];
+ if(i==0)
+    {
+     i++;
+     v1[i]='0';
+    }
+ image=TTF_RenderText_Solid(font1,v1,color1);
+ apply_surface(0,640,image,screen);
+ image=SDL_LoadBMP("inventory_mana_potion.bmp");
+ apply_surface(160,560,image,screen);
+ a=prices[5][2];
+ i=0,i1,j;
+ if(a<0)
+    a=0;
+ v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+ v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+ while(a!=0)
+       {
+        i++;
+        v[i]=a%10+'0';
+        a/=10;
+       }
+ for(i1=0,j=i;j>=1;i1++,j--)
+     v1[i1]=v[j];
+ if(i==0)
+    {
+     i++;
+     v1[i]='0';
+    }
+ image=TTF_RenderText_Solid(font1,v1,color1);
+ apply_surface(160,640,image,screen);
+ image=SDL_LoadBMP("inventory_amulet_of_Greed.bmp");
+ apply_surface(320,560,image,screen);
+ a=prices[5][3];
+ i=0,i1,j;
+ if(a<0)
+    a=0;
+ v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+ v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+ while(a!=0)
+       {
+        i++;
+        v[i]=a%10+'0';
+        a/=10;
+       }
+ for(i1=0,j=i;j>=1;i1++,j--)
+     v1[i1]=v[j];
+ if(i==0)
+    {
+     i++;
+     v1[i]='0';
+    }
+ image=TTF_RenderText_Solid(font1,v1,color1);
+ apply_surface(320,640,image,screen);
+ image=SDL_LoadBMP("inventory_amulet_of_FireRes.bmp");
+ apply_surface(480,560,image,screen);
+ a=prices[5][4];
+ i=0,i1,j;
+ if(a<0)
+    a=0;
+ v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+ v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+ while(a!=0)
+       {
+        i++;
+        v[i]=a%10+'0';
+        a/=10;
+       }
+ for(i1=0,j=i;j>=1;i1++,j--)
+     v1[i1]=v[j];
+ if(i==0)
+    {
+     i++;
+     v1[i]='0';
+    }
+ image=TTF_RenderText_Solid(font1,v1,color1);
+ apply_surface(480,640,image,screen);
+ image=SDL_LoadBMP("inventory_devil's_amulet.bmp");
+ apply_surface(640,560,image,screen);
+ a=prices[5][5];
+ i=0,i1,j;
+ if(a<0)
+    a=0;
+ v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+ v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+ while(a!=0)
+       {
+        i++;
+        v[i]=a%10+'0';
+        a/=10;
+       }
+ for(i1=0,j=i;j>=1;i1++,j--)
+     v1[i1]=v[j];
+ if(i==0)
+    {
+     i++;
+     v1[i]='0';
+    }
+ image=TTF_RenderText_Solid(font1,v1,color1);
+ apply_surface(640,640,image,screen);
+ for(int y=1;y<=n;y++)
+     for(int x=1;x<=m;x++)
+         {
+         	if(player1_items[x][y]==1)
+         	   {
+		    image=TTF_RenderText_Solid(font2,"x1",color2);
+		    //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+		    apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+         	   }
+         }
+ for(int x=n;x<=n;x++)
+     for(int y=1;y<=5;y++)
+         {
+          a=player1_items[x][y];
+		i=1,i1,j;
+		if(a<0)
+		   a=0;
+		v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
+		v1[0]=v1[1]=v1[2]=v1[3]=v1[4]=v1[5]=v1[6]=v1[7]=v1[8]=v1[9]=0;
+		while(a!=0)
+			 {
+			  i++;
+			  v[i]=a%10+'0';
+			  a/=10;
+			 }
+		for(i1=0,j=i;j>=1;i1++,j--)
+		    v1[i1]=v[j];
+		if(i==1)
+		   {
+		    i++;
+		    v1[i]='0';
+		   }
+		v1[0]='x';
+		image=TTF_RenderText_Solid(font2,v1,color2);
+		apply_surface((y-1)*160+160-40,x*80+(x-1)*40,image,screen);
+         }
 }
 void shop(int m,int n)
 {
@@ -732,7 +892,7 @@ int main(int argc,char* args[])
  print_player_info(true);
  print_shop(4,5);
  SDL_Flip(screen);
- shop(4,5);
+ shop(5,5);
  save_player1("player1");
  //SDL_Delay(1000);
 return 0;
