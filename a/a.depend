@@ -95,3 +95,40 @@
 	<stdlib.h>
 	<windows.h>
 
+1400581902 source:/home/cioltanalexandru7/a/a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1399981286 /home/cioltanalexandru7/a/alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1400615811 source:d:\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400551402 d:\a\pixelworld.h
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400611618 d:\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
