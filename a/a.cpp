@@ -587,8 +587,8 @@ int main( int argc, char* args[] )
             player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
             if(obs[player2.lin][player2.col+1]==3)
                {
-			    player2.permission_basic=1;
-			    player1.hp-=10+player2.attack/10-player1.block/10;
+			 player2.permission_basic=1;
+			 player1.hp-=10+player2.attack/10-player1.block/10;
                 player1.print_hp(1,0);
                 Mix_PlayChannel(-1, sound, 0);
                }

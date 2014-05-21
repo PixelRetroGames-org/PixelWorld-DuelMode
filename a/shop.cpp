@@ -135,7 +135,7 @@ void load_save_player1(char *nume_salvare)
  if(salvare==NULL)
     {
      salvare=fopen(nume_salvare1,"w");
-     fprintf(salvare,"0");
+     fprintf(salvare,"0 0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0");
      fclose(salvare);
      salvare=fopen(nume_salvare1,"r");
     }
@@ -167,8 +167,8 @@ void print_player_info(bool pp)
  print_xp(player1_xp,0,13);
  color1={255,194,0};
  message=TTF_RenderText_Solid(font,"Money: ",color1);
- apply_surface(800,0,message,screen);
- print_money(player1_money,0,26);
+ apply_surface(750,0,message,screen);
+ print_money(player1_money,0,24);
  SDL_Flip(screen);
 }
 void print_shop(int m,int n)
@@ -771,20 +771,23 @@ void print_shop(int m,int n)
  image=TTF_RenderText_Solid(font1,v1,color1);
  apply_surface(640,640,image,screen);
  for(int y=1;y<=n;y++)
-     for(int x=1;x<=m;x++)
+     for(int x=1;x<=m+1;x++)
          {
-         	if(player1_items[x][y]==1)
+         	if(!(x==5 && y<=2))
          	   {
-		    image=TTF_RenderText_Solid(font2,"x1",color2);
-		    //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
-		    apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+		    if(player1_items[x][y]==1)
+         	       {
+		        image=TTF_RenderText_Solid(font2,"x1",color2);
+		        //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+		        apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+         	       }
          	   }
          }
  for(int x=n;x<=n;x++)
-     for(int y=1;y<=5;y++)
+     for(int y=1;y<=2;y++)
          {
           a=player1_items[x][y];
-		i=1,i1,j;
+		i=0,i1,j;
 		if(a<0)
 		   a=0;
 		v[0]=v[1]=v[2]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=0;
@@ -795,14 +798,10 @@ void print_shop(int m,int n)
 			  v[i]=a%10+'0';
 			  a/=10;
 			 }
-		for(i1=0,j=i;j>=1;i1++,j--)
+		for(i1=1,j=i;j>=1;i1++,j--)
 		    v1[i1]=v[j];
-		if(i==1)
-		   {
-		    i++;
-		    v1[i]='0';
-		   }
-		v1[0]='x';
+		if(i1!=1)
+		   v1[0]='x';
 		image=TTF_RenderText_Solid(font2,v1,color2);
 		apply_surface((y-1)*160+160-40,x*80+(x-1)*40,image,screen);
          }
@@ -845,15 +844,49 @@ void shop(int m,int n)
         enter=getkey(VK_RETURN);
         if(enter==1)
            {
-            if(player1_money>=prices[x][y] && player1_items[x][y]==0)
-			   {
-			    player1_money-=prices[x][y];
-			    player1_items[x][y]=1;
-			    print_player_info(false);
-                   image=TTF_RenderText_Solid(font2,"x1",color2);
-                   //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
-                   apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
-			   }
+            if(player1_money>=prices[x][y] && player1_items[x][y]==0 && (x<=4 || (x==5 && y>2)))
+			{
+			 player1_money-=prices[x][y];
+			 player1_items[x][y]=1;
+			 print_player_info(false);
+			 image=TTF_RenderText_Solid(font2,"x1",color2);
+			 //apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+			 apply_surface((y-1)*160+160-20,x*80+(x-1)*40,image,screen);
+			}
+		  else
+		     {
+		      if(player1_money>=prices[x][y] && player1_items[x][y]<100 && x>4 && y<=2)
+			    {
+				player1_money-=prices[x][y];
+				player1_items[x][y]++;
+				print_player_info(false);
+				image=SDL_LoadBMP("inventory_clear.bmp");
+				apply_surface((y-1)*160+160-40,x*80+(x-1)*40,image,screen);
+				int a=player1_items[x][y];
+				int i=0,i1,j;
+				if(a<0)
+				   a=0;
+				char v[10]={0,0,0,0,0,0,0,0,0,0};
+				char v1[10]={0,0,0,0,0,0,0,0,0,0};
+				while(a!=0)
+					 {
+					  i++;
+					  v[i]=a%10+'0';
+					  a/=10;
+					 }
+				for(i1=1,j=i;j>=1;i1++,j--)
+				    v1[i1]=v[j];
+				v1[0]='x';
+				if(i==0)
+				   {
+				    i++;
+				    v1[i]='0';
+				   }
+                    image=TTF_RenderText_Solid(font2,v1,color2);
+				//apply_surface((y-1)*160,x*80+(x-1)*40-10,image,screen);
+				apply_surface((y-1)*160+160-40,x*80+(x-1)*40,image,screen);
+			    }
+		     }
            }
         SDL_Delay(100);
        }
@@ -880,6 +913,11 @@ void save_player1(char *nume_salvare)
           }
       fprintf(salvare,"\n");
      }
+ for(int i=5;i<=5;i++)
+     for(int j=1;j<=5;j++)
+         {
+         	fprintf(salvare,"%d\n",player1_items[i][j]);
+         }
 }
 int main(int argc,char* args[])
 {
