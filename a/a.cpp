@@ -14,6 +14,7 @@
  NOTE: Player1 is really Player1
        Player is actually Player2
  TO DO LATER: A good way to make the code more simple is to make players objects...
+ DONE!
 ***/
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
 {
@@ -461,8 +462,8 @@ int main( int argc, char* args[] )
  apply_surface((0)*40,0,background,screen);
  apply_surface((0)*40+5,0,message,screen);
  SDL_Flip(screen);
- player1.skin=SDL_LoadBMP("warrior_on_grass.bmp");
- player2.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
+ player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
+ player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
  obs[player2.lin][player2.col]=2;
  obs[player1.lin][player1.col]=3;
  player2.print_hp(1,COL_MAX+COL_START+2);
@@ -707,8 +708,9 @@ int main( int argc, char* args[] )
 			 player2.hp-=10+player1.attack/10-player2.block/10;
                 //SDL_FreeSurface(player);
                 player2.print_hp(1,COL_MAX+COL_START+2);
-                /*player2=SDL_LoadBMP("hit_warrior_on_grass.bmp");
-                apply_surface(player2.col*40,player2.lin*40,player,screen);*/
+                player2.skin=SDL_LoadBMP("hit_warrior_on_grass.bmp");
+                apply_surface(player2.col*40,player2.lin*40,player2.skin,screen);
+                SDL_Delay(500);
                 SDL_Flip(screen);
                 Mix_PlayChannel(-1, sound, 0);
                }
@@ -723,8 +725,8 @@ int main( int argc, char* args[] )
                 player2.print_hp(1,COL_MAX+COL_START+2);
                 //SDL_FreeSurface(player);
                 player2.skin=SDL_LoadBMP("hit_warrior_on_grass.bmp");
-                /*apply_surface(player2.col*40,player2.lin*40,player,screen);
-                SDL_Flip(screen);*/
+                apply_surface(player2.col*40,player2.lin*40,player2.skin,screen);
+                SDL_Flip(screen);
                 Mix_PlayChannel(-1, sound, 0);
                }
            }
