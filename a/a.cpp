@@ -32,7 +32,7 @@ char pp,mute=0;
 Uint8 *keystates=SDL_GetKeyState(NULL);
 int time_ex,beg1,beg2,end1,end2,t,t1,t2,flag_player;
 int power1,power2,power3,power4;
-int up,down,right,left,atack_left,atack_right,atack1_left,atack1_right;
+int up,down,right,left,atack_left,atack_right,atack1_left,atack1_right,mana_pot,hp_pot;
 int v[LIN_MAX+3][COL_MAX+3],obs[LIN_MAX+3][COL_MAX+3];
 SDL_Surface *image=NULL;
 SDL_Surface *screen=NULL;
@@ -129,7 +129,9 @@ class player
          else
              if(items[1][5]==1)
                  items_equipped[5]=1;
-  SDL_Surface *hp_pot=NULL,*helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
+  SDL_Surface *hp_pot=NULL,*mana_pot=NULL,*helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
+  TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
+  SDL_Color color2={255,294,10};
   if(items_equipped[1]==1)
      {
      block+=10;
@@ -234,10 +236,64 @@ class player
     }
  if(items[5][1]>0)
     {
-     hp_pot=SDL_LoadBMP("red_potion.bmp");
+     hp_pot=SDL_LoadBMP("life_potion.bmp");
+    }
+ if(items[5][2]>0)
+    {
+     mana_pot=SDL_LoadBMP("mana_potion.bmp");
     }
  if(hp_pot!=NULL)
-    apply_surface(left_limit,120,hp_pot,screen);
+    {
+    	apply_surface(left_limit,120,hp_pot,screen);
+     int a=items[5][1];
+     int i=0,i1,j;
+     if(a<0)
+        a=0;
+     char v[10]={0,0,0,0,0,0,0,0,0,0};
+     char v1[10]={0,0,0,0,0,0,0,0,0,0};
+     while(a!=0)
+           {
+            i++;
+            v[i]=a%10+'0';
+            a/=10;
+           }
+     for(i1=1,j=i;j>=1;i1++,j--)
+         v1[i1]=v[j];
+     if(i==0)
+        {
+         i++;
+         v1[i]='0';
+        }
+     v1[0]='x';
+     image=TTF_RenderText_Solid(font2,v1,color2);
+     apply_surface(left_limit+50,120,image,screen);
+    }
+ if(mana_pot!=NULL)
+    {
+    	apply_surface(left_limit+80,120,mana_pot,screen);
+     int a=items[5][2];
+     int i=0,i1,j;
+     if(a<0)
+        a=0;
+     char v[10]={0,0,0,0,0,0,0,0,0,0};
+     char v1[10]={0,0,0,0,0,0,0,0,0,0};
+     while(a!=0)
+           {
+            i++;
+            v[i]=a%10+'0';
+            a/=10;
+           }
+     for(i1=1,j=i;j>=1;i1++,j--)
+         v1[i1]=v[j];
+     if(i==0)
+        {
+         i++;
+         v1[i]='0';
+        }
+     v1[0]='x';
+     image=TTF_RenderText_Solid(font2,v1,color2);
+     apply_surface(left_limit+130,120,image,screen);
+    }
  if(helmet!=NULL)
     apply_surface(left_limit+20,280,helmet,screen);
  if(chestplate!=NULL)
@@ -271,6 +327,9 @@ class player
 	       }
        fprintf(salvare,"\n");
       }
+  for(int j=1;j<=5;j++)
+      for(int i=5;i<=5;i++)
+          fprintf(salvare,"%d\n",items[i][j]);
  }
  void print_hp(int lin,int col)
  {
@@ -492,7 +551,8 @@ int main( int argc, char* args[] )
  player1.skin_state=1;
  player2.skin_state=0;
  while(keystates[SDLK_ESCAPE]==NULL && player1.hp>0 && player2.hp>0)
-       {flag_player=0;
+       {
+	   flag_player=0;
 	   t=time(NULL);
         if(t-t1>=2)
            {
@@ -541,6 +601,82 @@ int main( int argc, char* args[] )
         power4=keystates[SDLK_p];
         atack1_left=keystates[SDLK_z];
         atack1_right=keystates[SDLK_z];
+        mana_pot=keystates[SDLK_0];
+        hp_pot=keystates[SDLK_9];
+	   if(mana_pot==1 && player2.mana<100)
+           {
+            if(player2.items[5][2]>=1)
+               {
+                player2.items[5][2]--;
+                player2.mana+=10;
+                if(player2.mana>100)
+                   player2.mana=100;
+                player2.print_mana(2,0);
+                clear=SDL_LoadBMP("inventory_clear.bmp");
+                apply_surface(130+27*40,120,clear,screen);
+                int a=player2.items[5][2];
+			 int i=0,i1,j;
+			 if(a<0)
+			    a=0;
+			 char v[10]={0,0,0,0,0,0,0,0,0,0};
+			 char v1[10]={0,0,0,0,0,0,0,0,0,0};
+			 while(a!=0)
+				  {
+				   i++;
+				   v[i]=a%10+'0';
+				   a/=10;
+				  }
+			 for(i1=1,j=i;j>=1;i1++,j--)
+				v1[i1]=v[j];
+			 if(i==0)
+			    {
+				i++;
+				v1[i]='0';
+			    }
+			 v1[0]='x';
+			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
+			 SDL_Color color2={255,294,10};
+			 image=TTF_RenderText_Solid(font2,v1,color2);
+		      apply_surface(130+27*40,120,image,screen);
+               }
+           }
+        if(hp_pot==1 && player2.hp<100)
+           {
+            if(player2.items[5][1]>=1)
+               {
+                player2.items[5][1]--;
+                player2.hp+=10;
+                if(player2.hp>100)
+                   player2.hp=100;
+                player2.print_hp(1,27);
+                clear=SDL_LoadBMP("inventory_clear.bmp");
+                apply_surface(40+27*40,120,clear,screen);
+                int a=player2.items[5][1];
+			 int i=0,i1,j;
+			 if(a<0)
+			    a=0;
+			 char v[10]={0,0,0,0,0,0,0,0,0,0};
+			 char v1[10]={0,0,0,0,0,0,0,0,0,0};
+			 while(a!=0)
+				  {
+				   i++;
+				   v[i]=a%10+'0';
+				   a/=10;
+				  }
+			 for(i1=1,j=i;j>=1;i1++,j--)
+				v1[i1]=v[j];
+			 if(i==0)
+			    {
+				i++;
+				v1[i]='0';
+			    }
+			 v1[0]='x';
+			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
+			 SDL_Color color2={255,294,10};
+			 image=TTF_RenderText_Solid(font2,v1,color2);
+		      apply_surface(50+27*40,120,image,screen);
+               }
+           }
         if(power1==1 && player2.mana>=10 && player2.hp<=90)
            {
             player2.mana-=10;
@@ -679,6 +815,82 @@ int main( int argc, char* args[] )
         power2=keystates[SDLK_2];
         power3=keystates[SDLK_3];
         power4=keystates[SDLK_4];
+        mana_pot=keystates[SDLK_F2];
+        hp_pot=keystates[SDLK_F1];
+        if(mana_pot==1 && player1.mana<100)
+           {
+            if(player1.items[5][2]>=1)
+               {
+                player1.items[5][2]--;
+                player1.mana+=10;
+                if(player1.mana>100)
+                   player1.mana=100;
+                player1.print_mana(2,0);
+                clear=SDL_LoadBMP("inventory_clear.bmp");
+                apply_surface(130,120,clear,screen);
+                int a=player1.items[5][2];
+			 int i=0,i1,j;
+			 if(a<0)
+			    a=0;
+			 char v[10]={0,0,0,0,0,0,0,0,0,0};
+			 char v1[10]={0,0,0,0,0,0,0,0,0,0};
+			 while(a!=0)
+				  {
+				   i++;
+				   v[i]=a%10+'0';
+				   a/=10;
+				  }
+			 for(i1=1,j=i;j>=1;i1++,j--)
+				v1[i1]=v[j];
+			 if(i==0)
+			    {
+				i++;
+				v1[i]='0';
+			    }
+			 v1[0]='x';
+			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
+			 SDL_Color color2={255,294,10};
+			 image=TTF_RenderText_Solid(font2,v1,color2);
+		      apply_surface(130,120,image,screen);
+               }
+           }
+        if(hp_pot==1 && player1.hp<100)
+           {
+            if(player1.items[5][1]>=1)
+               {
+                player1.items[5][1]--;
+                player1.hp+=10;
+                if(player1.hp>100)
+                   player1.hp=100;
+                player1.print_hp(1,0);
+                clear=SDL_LoadBMP("inventory_clear.bmp");
+                apply_surface(40,120,clear,screen);
+                int a=player1.items[5][1];
+			 int i=0,i1,j;
+			 if(a<0)
+			    a=0;
+			 char v[10]={0,0,0,0,0,0,0,0,0,0};
+			 char v1[10]={0,0,0,0,0,0,0,0,0,0};
+			 while(a!=0)
+				  {
+				   i++;
+				   v[i]=a%10+'0';
+				   a/=10;
+				  }
+			 for(i1=1,j=i;j>=1;i1++,j--)
+				v1[i1]=v[j];
+			 if(i==0)
+			    {
+				i++;
+				v1[i]='0';
+			    }
+			 v1[0]='x';
+			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
+			 SDL_Color color2={255,294,10};
+			 image=TTF_RenderText_Solid(font2,v1,color2);
+		      apply_surface(50,120,image,screen);
+               }
+           }
         if(power1==1 && player1.mana>=10 && player1.hp<=90)
            {
             player1.mana-=10;
