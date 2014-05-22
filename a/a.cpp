@@ -41,7 +41,7 @@ class player
 {
  public:
  int hp,xp,mana,money,items[10][10],items_equipped[7];
- int attack,block,fire_res,fire_dmg,permission_basic,permission;
+ int attack,block,fire_res,fire_dmg,permission_basic,permission,skin_state;
  int lin,col;
  SDL_Surface *skin;
  public:
@@ -478,6 +478,8 @@ int main( int argc, char* args[] )
  put_arena_wall();
  player1.load_save("player1",0);
  player2.load_save("player2",27*40);
+ player1.skin_state=1;
+ player2.skin_state=0;
  while(keystates[SDLK_ESCAPE]==NULL && player1.hp>0 && player2.hp>0)
        {flag_player=0;
 	   t=time(NULL);
@@ -505,7 +507,15 @@ int main( int argc, char* args[] )
            }
 	   if(t-t2>=1)
 		 {
-		  t2=t;
+          if(player1.skin_state==1)
+              player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
+          else
+              player1.skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
+          if(player2.skin_state==1)
+              player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
+		  else
+              player2.skin=SDL_LoadBMP("warrior_on_grass_left.bmp");
+          t2=t;
 		  player2.permission_basic=player1.permission_basic=0;
 		 }
         up=keystates[SDLK_UP];
@@ -574,10 +584,14 @@ int main( int argc, char* args[] )
         if(atack_left==1 && player2.permission_basic==0)
            {
             player2.skin=SDL_LoadBMP("warrior_on_grass_left.bmp");
+            player2.skin_state=0;
             if(obs[player2.lin][player2.col-1]==3)
                {
 			 player2.permission_basic=1;
 			 player1.hp-=10+player2.attack/10-player1.block/10;
+			 player1.skin=SDL_LoadBMP("hit_warrior1_on_grass.bmp");
+			 player1.skin_state=1;
+			 apply_surface((player1.col+COL_START)*40,player1.lin*40,player1.skin,screen);
                 player1.print_hp(1,0);
                 Mix_PlayChannel(-1, sound, 0);
                }
@@ -585,10 +599,14 @@ int main( int argc, char* args[] )
         if(atack_right==1 && player2.permission_basic==0)
            {
             player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
+            player2.skin_state=1;
             if(obs[player2.lin][player2.col+1]==3)
                {
 			 player2.permission_basic=1;
 			 player1.hp-=10+player2.attack/10-player1.block/10;
+			 player1.skin=SDL_LoadBMP("hit_warrior1_on_grass_left.bmp");
+			 player1.skin_state=0;
+			 apply_surface((player1.col+COL_START)*40,player1.lin*40,player1.skin,screen);
                 player1.print_hp(1,0);
                 Mix_PlayChannel(-1, sound, 0);
                }
@@ -625,6 +643,7 @@ int main( int argc, char* args[] )
                 player2.col--;
                 obs[player2.lin][player2.col]=2;
                 player2.skin=SDL_LoadBMP("warrior_on_grass_left.bmp");
+                player2.skin_state=0;
                }
            }
         if(right==1 && player2.col<LIN_MAX)
@@ -637,6 +656,7 @@ int main( int argc, char* args[] )
                 player2.col++;
                 obs[player2.lin][player2.col]=2;
                 player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
+                player2.skin_state=1;
                }
            }
         apply_surface((player2.col+COL_START)*40,player2.lin*40,player2.skin,screen);
@@ -705,12 +725,13 @@ int main( int argc, char* args[] )
                {
 			 player1.permission_basic=1;
                 player1.skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
+                player1.skin_state=0;
 			 player2.hp-=10+player1.attack/10-player2.block/10;
                 //SDL_FreeSurface(player);
                 player2.print_hp(1,COL_MAX+COL_START+2);
                 player2.skin=SDL_LoadBMP("hit_warrior_on_grass.bmp");
-                apply_surface(player2.col*40,player2.lin*40,player2.skin,screen);
-                SDL_Delay(500);
+                player2.skin_state=1;
+                apply_surface((player2.col+COL_START)*40,player2.lin*40,player2.skin,screen);
                 SDL_Flip(screen);
                 Mix_PlayChannel(-1, sound, 0);
                }
@@ -721,11 +742,13 @@ int main( int argc, char* args[] )
                {
 			    player1.permission_basic=1;
                 player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
+                player1.skin_state=1;
 			    player2.hp-=10+player1.attack/10-player2.block/10;
                 player2.print_hp(1,COL_MAX+COL_START+2);
                 //SDL_FreeSurface(player);
-                player2.skin=SDL_LoadBMP("hit_warrior_on_grass.bmp");
-                apply_surface(player2.col*40,player2.lin*40,player2.skin,screen);
+                player2.skin=SDL_LoadBMP("hit_warrior_on_grass_left.bmp");
+                player2.skin_state=0;
+                apply_surface((player2.col+COL_START)*40,player2.lin*40,player2.skin,screen);
                 SDL_Flip(screen);
                 Mix_PlayChannel(-1, sound, 0);
                }
@@ -762,6 +785,7 @@ int main( int argc, char* args[] )
                 player1.col--;
                 obs[player1.lin][player1.col]=3;
                 player1.skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
+                player1.skin_state=0;
                }
            }
         if(right==1 && player1.col<LIN_MAX)
@@ -774,7 +798,8 @@ int main( int argc, char* args[] )
                 player1.col++;
                 obs[player1.lin][player1.col]=3;
                 player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
-               }
+                player1.skin_state=1;
+                }
            }
         SDL_Delay(50);
         apply_surface((player1.col+COL_START)*40,player1.lin*40,player1.skin,screen);
