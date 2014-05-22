@@ -61,14 +61,19 @@ class player
   if(salvare==NULL)
      {
       salvare=fopen(nume_salvare1,"w");
-      fprintf(salvare,"0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n");
+      fprintf(salvare,"0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0");
       fclose(salvare);
       salvare=fopen(nume_salvare1,"r");
      }
   fscanf(salvare,"%d %d",&money,&xp);
   for(int j=1;j<=5;j++)
-      for(int i=1;i<=4;i++)
-	      fscanf(salvare,"%d",&items[i][j]);
+     for(int i=1;i<=4;i++)
+         {
+		 fscanf(salvare,"%d",&items[i][j]);
+         }
+ for(int i=5;i<=5;i++)
+     for(int j=1;j<=5;j++)
+         fscanf(salvare,"%d ",&items[i][j]);
   if(items[1][4]==1)
      items_equipped[1]=4;
   else
@@ -124,7 +129,7 @@ class player
          else
              if(items[1][5]==1)
                  items_equipped[5]=1;
-  SDL_Surface *helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
+  SDL_Surface *hp_pot=NULL,*helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
   if(items_equipped[1]==1)
      {
      block+=10;
@@ -227,6 +232,12 @@ class player
     fire_dmg+=10;
     sword=SDL_LoadBMP("lvl4_sword.bmp");
     }
+ if(items[5][1]>0)
+    {
+     hp_pot=SDL_LoadBMP("red_potion.bmp");
+    }
+ if(hp_pot!=NULL)
+    apply_surface(left_limit,120,hp_pot,screen);
  if(helmet!=NULL)
     apply_surface(left_limit+20,280,helmet,screen);
  if(chestplate!=NULL)
@@ -439,7 +450,7 @@ int main( int argc, char* args[] )
  SDL_Init(SDL_INIT_EVERYTHING);
  Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
- screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
+ screen=SDL_SetVideoMode(0,0,32,SDL_SWSURFACE);
  TTF_Init();
  font=TTF_OpenFont("font2.ttf",40);
  music=Mix_LoadMUS("bck.wav");

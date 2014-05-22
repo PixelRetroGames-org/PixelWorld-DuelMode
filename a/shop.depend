@@ -81,7 +81,7 @@
 	<stdlib.h>
 	<windows.h>
 
-1400137599 source:c:\users\elev\a\shop.cpp
+1400750620 source:c:\users\elev\a\shop.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_mixer.h"
@@ -92,7 +92,7 @@
 	<conio.h>
 	"alex.h"
 
-1400136571 c:\users\elev\a\alex.h
+1400747585 c:\users\elev\a\alex.h
 	<conio.h>
 	<stdlib.h>
 	<windows.h>
