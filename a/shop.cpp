@@ -922,7 +922,7 @@ void save_player1(char *nume_salvare)
 int main(int argc,char* args[])
 {
  SDL_Init(SDL_INIT_EVERYTHING);
- screen=SDL_SetVideoMode(0,0,32,SDL_SWSURFACE);
+ screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  background=SDL_LoadBMP("wooden_background.bmp");
  apply_surface(0,0,background,screen);
  //print_main_layer();
