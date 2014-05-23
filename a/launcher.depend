@@ -26,15 +26,16 @@
 	<stdlib.h>
 	<windows.h>
 
-1400182033 source:c:\documents and settings\alexx\a\launcher.cpp
+1400869233 source:c:\documents and settings\alexx\a\launcher.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_mixer.h"
 	<string>
 	<cstdio>
 	"alex.h"
+	<windows.h>
 
-1393268489 c:\documents and settings\alexx\a\alex.h
+1400611618 c:\documents and settings\alexx\a\alex.h
 	<conio.h>
 	<stdlib.h>
 	<windows.h>

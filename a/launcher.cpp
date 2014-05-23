@@ -74,7 +74,7 @@ int main( int argc, char* args[] )
                     {
                      Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
                      music=Mix_LoadMUS("credits_bck.wav");
-                     Mix_PlayMusic(music,-1);
+                     //Mix_PlayMusic(music,-1);
 				 apply_surface(0,0,background,screen);
                      message=TTF_RenderText_Solid(font,"Game Made By ",color1);
                      apply_surface(0,0,message,screen);
@@ -108,6 +108,10 @@ int main( int argc, char* args[] )
                      apply_surface(200,400,message,screen);
                      message=TTF_RenderText_Solid(font,"Graphics",color1);
                      apply_surface(500,400,message,screen);
+                     message=TTF_RenderText_Solid(font," Teo Oprescu: ",color2);
+                     apply_surface(200,450,message,screen);
+                     message=TTF_RenderText_Solid(font,"Graphics",color1);
+                     apply_surface(560,450,message,screen);
                      while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0);
                      goto mmain;
                      break;

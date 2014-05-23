@@ -40,7 +40,7 @@ SDL_Surface *background=NULL;
 class player
 {
  public:
- int hp,xp,mana,money,items[10][10],items_equipped[7];
+ int hp,xp,mana,money,items[10][10],items_equipped[10];
  int attack,block,fire_res,fire_dmg,permission_basic,permission,skin_state;
  int lin,col;
  SDL_Surface *skin;
@@ -129,7 +129,7 @@ class player
          else
              if(items[1][5]==1)
                  items_equipped[5]=1;
-  SDL_Surface *hp_pot=NULL,*mana_pot=NULL,*helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
+  SDL_Surface *amulet=NULL,*hp_pot=NULL,*mana_pot=NULL,*helmet=NULL,*chestplate=NULL,*boots=NULL,*trousers=NULL,*sword=NULL;
   TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
   SDL_Color color2={255,294,10};
   if(items_equipped[1]==1)
@@ -241,6 +241,35 @@ class player
  if(items[5][2]>0)
     {
      mana_pot=SDL_LoadBMP("mana_potion.bmp");
+    }
+ if(items[5][3]>0)
+    {
+	amulet=SDL_LoadBMP("amulet_of_greed.bmp");
+     items_equipped[6]=1;
+    }
+ if(items[5][4]>0)
+    {
+    	amulet=SDL_LoadBMP("amulet_of_fire_res.bmp");
+    	items_equipped[6]=2;
+    }
+ if(items[5][5]>0)
+    {
+    	amulet=SDL_LoadBMP("Devil's_Amulet.bmp");
+     items_equipped[6]=3;
+    }
+ if(items_equipped[6]==2)
+    {
+    	fire_res+=fire_res*10/100+3;
+    }
+ else
+    if(items_equipped[6]==3)
+       {
+        fire_dmg+=fire_dmg*30/100+3;
+        attack+=attack*40/100+3;
+       }
+ if(amulet!=NULL)
+    {
+    	apply_surface(left_limit,200,amulet,screen);
     }
  if(hp_pot!=NULL)
     {
@@ -507,7 +536,7 @@ int main( int argc, char* args[] )
  player1.lin=LIN_MAX/2,player1.col=COL_MAX/2-5,player2.lin=LIN_MAX/2,player2.col=COL_MAX/2+5;
  player1.money,player2.money,player2.xp,player1.xp;
  SDL_Init(SDL_INIT_EVERYTHING);
- Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
+ //Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
  screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  TTF_Init();
@@ -611,7 +640,7 @@ int main( int argc, char* args[] )
                 player2.mana+=10;
                 if(player2.mana>100)
                    player2.mana=100;
-                player2.print_mana(2,0);
+                player2.print_mana(2,27);
                 clear=SDL_LoadBMP("inventory_clear.bmp");
                 apply_surface(130+27*40,120,clear,screen);
                 int a=player2.items[5][2];
@@ -1036,6 +1065,11 @@ int main( int argc, char* args[] )
      message=TTF_RenderText_Solid(font,"Player 2 wins!",textColor);
      player2.money+=player2.hp+player2.mana+player1.money/50;
      player1.money+=player2.money/75+20;
+     int x1=player1.money,x2=player2.money;
+     if(player1.items_equipped[6]==1)
+        player1.money+=player2.money/75;
+     if(player2.items_equipped[6]==1)
+        player2.money+=x1/75;
      player2.xp+=100;
      player1.xp+=20;
     }
@@ -1047,6 +1081,11 @@ int main( int argc, char* args[] )
         message=TTF_RenderText_Solid(font,"Player 1 wins!",textColor);
         player1.money+=player1.hp+player1.mana+player2.money/50;
         player2.money+=player1.money/75+20;
+        int x1=player1.money,x2=player2.money;
+        if(player1.items_equipped[6]==1)
+           player1.money+=player2.money/75;
+	   if(player2.items_equipped[6]==1)
+		 player2.money+=x1/75;
         player1.xp+=100;
         player2.xp+=20;
        }
@@ -1060,13 +1099,18 @@ int main( int argc, char* args[] )
         int cash=(player2.money+player1.money)/2/25;
         player1.money+=cash;
         player2.money+=cash;
+        int x1=player1.money,x2=player2.money;
+        if(player1.items_equipped[6]==1)
+           player1.money+=player2.money/75;
+        if(player2.items_equipped[6]==1)
+           player2.money+=x1/75;
         player2.xp+=50;
         player1.xp+=50;
        }
  player1.save("player1");
  player2.save("player2");
  Mix_CloseAudio();
- Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
+ //Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
  sound=Mix_LoadWAV("win.wav");
  Mix_PlayChannel(-1,sound,0);
  apply_surface(((COL_MAX+COL_START)/2-1)*40,(LIN_MAX/2-1)*40,message,screen);
