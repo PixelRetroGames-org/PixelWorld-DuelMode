@@ -7,7 +7,7 @@
 #include<windows.h>
 #define N 3
 SDL_Surface *screen,*background;
-SDL_Surface *image[5][3],*message;
+SDL_Surface *image[5][3],*message,*clear;
 SDL_Color color1={0,900,0},color2={450,0,0},color3{240,240,70};
 Mix_Music *music=NULL;
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
@@ -27,11 +27,12 @@ int main( int argc, char* args[] )
   font=TTF_OpenFont("font2.ttf",50);
   screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
   image[1][1]=TTF_RenderText_Solid(font,"Single Player Mode ",color1);
-  image[1][2]=TTF_RenderText_Solid(font,"Single Player Mode ",color2);
+  image[1][2]=TTF_RenderText_Solid(font,"> Single Player Mode ",color2);
   image[2][1]=TTF_RenderText_Solid(font,"Duel Mode ",color1);
-  image[2][2]=TTF_RenderText_Solid(font,"Duel Mode",color2);
+  image[2][2]=TTF_RenderText_Solid(font,"> Duel Mode",color2);
   image[3][1]=TTF_RenderText_Solid(font,"Credits",color1);
-  image[3][2]=TTF_RenderText_Solid(font,"Credits",color2);
+  image[3][2]=TTF_RenderText_Solid(font,"> Credits",color2);
+  clear=SDL_LoadBMP("launcher_clear.bmp");
   background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
   apply_surface(450,600-80,image[1][2],screen);
@@ -45,14 +46,18 @@ int main( int argc, char* args[] )
             down=getkey(VK_DOWN);
             if(up==1 && poz>1)
                {
+                apply_surface(450,680-80*(N-poz),clear,screen);
                 apply_surface(450,680-80*(N-poz),image[poz][1],screen);
                 poz--;
+                apply_surface(450,520+80*(poz-1),clear,screen);
                 apply_surface(450,520+80*(poz-1),image[poz][2],screen);
                }
             if(down==1 && poz<N)
                {
+                apply_surface(450,520+80*(poz-1),clear,screen);
                 apply_surface(450,520+80*(poz-1),image[poz][1],screen);
                 poz++;
+                apply_surface(450,680-80*(N-poz),clear,screen);
                 apply_surface(450,680-80*(N-poz),image[poz][2],screen);
                }
             SDL_Delay(100);
@@ -74,7 +79,8 @@ int main( int argc, char* args[] )
                     {
                      Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
                      music=Mix_LoadMUS("credits_bck.wav");
-                     //Mix_PlayMusic(music,-1);
+                     Mix_PlayMusic(music,-1);
+				 background=SDL_LoadBMP("wooden_background.bmp");
 				 apply_surface(0,0,background,screen);
                      message=TTF_RenderText_Solid(font,"Game Made By ",color1);
                      apply_surface(0,0,message,screen);
@@ -113,6 +119,7 @@ int main( int argc, char* args[] )
                      message=TTF_RenderText_Solid(font,"Graphics",color1);
                      apply_surface(560,450,message,screen);
                      while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0);
+                     Mix_CloseAudio();
                      goto mmain;
                      break;
                     }

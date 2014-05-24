@@ -816,10 +816,10 @@ void shop(int m,int n)
 	  {
 	   exit=getkey(VK_ESCAPE);
 	   down=up=left=right=0;
-	   up=getkey(VK_LEFT);
-	   down=getkey(VK_RIGHT);
-	   left=getkey(VK_UP);
-	   right=getkey(VK_DOWN);
+	   up=getkey('A');
+	   down=getkey('D');
+	   left=getkey('W');
+	   right=getkey('S');
 	   image=SDL_LoadBMP("vertical_black_item_layer.bmp");
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
 	   apply_surface((y-1)*160+160,x*80+(x-1)*40,image,screen);
@@ -841,7 +841,7 @@ void shop(int m,int n)
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
         apply_surface((y-1)*160,x*80+(x-1)*40+80-3,image,screen);
         SDL_Flip(screen);
-        enter=getkey(VK_RETURN);
+        enter=getkey(VK_SPACE);
         if(enter==1)
            {
             if(player1_money>=prices[x][y] && player1_items[x][y]==0 && (x<=4 || (x==5 && y>2)))

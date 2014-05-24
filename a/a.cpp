@@ -512,7 +512,7 @@ void welcome_message()
  message4=TTF_RenderText_Solid(font,"Duta Alexandru",color2);
  apply_surface(280,320,message4,screen);
  SDL_Flip(screen);
- while(getkey(VK_RETURN)==0);
+ while(keystates[SDLK_RETURN]==0);
 }
 void put_arena_wall()
 {
@@ -536,7 +536,7 @@ int main( int argc, char* args[] )
  player1.lin=LIN_MAX/2,player1.col=COL_MAX/2-5,player2.lin=LIN_MAX/2,player2.col=COL_MAX/2+5;
  player1.money,player2.money,player2.xp,player1.xp;
  SDL_Init(SDL_INIT_EVERYTHING);
- //Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
+ Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
  screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  TTF_Init();
@@ -581,12 +581,14 @@ int main( int argc, char* args[] )
  player2.skin_state=0;
  while(keystates[SDLK_ESCAPE]==NULL && player1.hp>0 && player2.hp>0)
        {
+        obs[player1.lin][player1.col]=3;
+        obs[player2.lin][player2.col]=2;
 	   flag_player=0;
 	   t=time(NULL);
         if(t-t1>=2)
            {
             start_t++;
-            if(start_t>=4)
+            if(start_t>=3)
                {
 			 clear_arena_wall();
                }
@@ -607,15 +609,15 @@ int main( int argc, char* args[] )
            }
 	   if(t-t2>=1)
 		 {
-          if(player1.skin_state==1)
-              player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
-          else
-              player1.skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
-          if(player2.skin_state==1)
-              player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
+            if(player1.skin_state==1)
+			player1.skin=SDL_LoadBMP("warrior1_on_grass.bmp");
+            else
+               player1.skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
+            if(player2.skin_state==1)
+               player2.skin=SDL_LoadBMP("warrior_on_grass.bmp");
 		  else
               player2.skin=SDL_LoadBMP("warrior_on_grass_left.bmp");
-          t2=t;
+            t2=t;
 		  player2.permission_basic=player1.permission_basic=0;
 		 }
         up=keystates[SDLK_UP];
@@ -1011,7 +1013,7 @@ int main( int argc, char* args[] )
             if(obs[player1.lin-1][player1.col]==0)
                {
                 obs[player1.lin][player1.col]=0;
-			    put_back(player1.lin,player1.col);
+			 put_back(player1.lin,player1.col);
                 player1.lin--;
                 obs[player1.lin][player1.col]=3;
                }
@@ -1022,7 +1024,7 @@ int main( int argc, char* args[] )
             if(obs[player1.lin+1][player1.col]==0)
                {
                 obs[player1.lin][player1.col]=0;
-			    put_back(player1.lin,player1.col);
+			 put_back(player1.lin,player1.col);
                 player1.lin++;
                 obs[player1.lin][player1.col]=3;
                }
@@ -1110,7 +1112,7 @@ int main( int argc, char* args[] )
  player1.save("player1");
  player2.save("player2");
  Mix_CloseAudio();
- //Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
+ Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
  sound=Mix_LoadWAV("win.wav");
  Mix_PlayChannel(-1,sound,0);
  apply_surface(((COL_MAX+COL_START)/2-1)*40,(LIN_MAX/2-1)*40,message,screen);
