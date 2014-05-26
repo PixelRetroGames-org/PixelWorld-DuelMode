@@ -264,8 +264,8 @@ class player
  else
     if(items_equipped[6]==3)
        {
-        fire_dmg+=fire_dmg*30/100+3;
-        attack+=attack*40/100+3;
+        fire_dmg+=fire_dmg*50/100+3;
+        attack+=attack*50/100+3;
        }
  if(amulet!=NULL)
     {
