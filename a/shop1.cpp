@@ -273,7 +273,7 @@ void print_shop(int m,int n)
 
  image=SDL_LoadBMP("inventory_lvl2_helmet.bmp");
  apply_surface(160,80,image,screen);
- a=prices[2][1];
+ a=prices[1][2];
  i=0,i1,j;
  if(a<0)
     a=0;

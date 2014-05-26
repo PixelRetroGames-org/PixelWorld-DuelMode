@@ -295,7 +295,7 @@ class player
         }
      v1[0]='x';
      image=TTF_RenderText_Solid(font2,v1,color2);
-     apply_surface(left_limit+50,120,image,screen);
+     apply_surface(left_limit+20,120,image,screen);
     }
  if(mana_pot!=NULL)
     {
@@ -321,7 +321,7 @@ class player
         }
      v1[0]='x';
      image=TTF_RenderText_Solid(font2,v1,color2);
-     apply_surface(left_limit+130,120,image,screen);
+     apply_surface(left_limit+100,120,image,screen);
     }
  if(helmet!=NULL)
     apply_surface(left_limit+20,280,helmet,screen);
@@ -644,7 +644,7 @@ int main( int argc, char* args[] )
                    player2.mana=100;
                 player2.print_mana(2,27);
                 clear=SDL_LoadBMP("inventory_clear.bmp");
-                apply_surface(130+27*40,120,clear,screen);
+                apply_surface(80+27*40,120,clear,screen);
                 int a=player2.items[5][2];
 			 int i=0,i1,j;
 			 if(a<0)
@@ -668,7 +668,7 @@ int main( int argc, char* args[] )
 			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
 			 SDL_Color color2={255,294,10};
 			 image=TTF_RenderText_Solid(font2,v1,color2);
-		      apply_surface(130+27*40,120,image,screen);
+		      apply_surface(100+27*40,120,image,screen);
                }
            }
         if(hp_pot==1 && player2.hp<100)
@@ -681,7 +681,7 @@ int main( int argc, char* args[] )
                    player2.hp=100;
                 player2.print_hp(1,27);
                 clear=SDL_LoadBMP("inventory_clear.bmp");
-                apply_surface(40+27*40,120,clear,screen);
+                apply_surface(20+27*40,120,clear,screen);
                 int a=player2.items[5][1];
 			 int i=0,i1,j;
 			 if(a<0)
@@ -705,7 +705,7 @@ int main( int argc, char* args[] )
 			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
 			 SDL_Color color2={255,294,10};
 			 image=TTF_RenderText_Solid(font2,v1,color2);
-		      apply_surface(50+27*40,120,image,screen);
+		      apply_surface(27*40,120,image,screen);
                }
            }
         if(power1==1 && player2.mana>=10 && player2.hp<=90)
@@ -858,7 +858,7 @@ int main( int argc, char* args[] )
                    player1.mana=100;
                 player1.print_mana(2,0);
                 clear=SDL_LoadBMP("inventory_clear.bmp");
-                apply_surface(130,120,clear,screen);
+                apply_surface(80,120,clear,screen);
                 int a=player1.items[5][2];
 			 int i=0,i1,j;
 			 if(a<0)
@@ -882,7 +882,7 @@ int main( int argc, char* args[] )
 			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
 			 SDL_Color color2={255,294,10};
 			 image=TTF_RenderText_Solid(font2,v1,color2);
-		      apply_surface(130,120,image,screen);
+		      apply_surface(100,120,image,screen);
                }
            }
         if(hp_pot==1 && player1.hp<100)
@@ -895,7 +895,7 @@ int main( int argc, char* args[] )
                    player1.hp=100;
                 player1.print_hp(1,0);
                 clear=SDL_LoadBMP("inventory_clear.bmp");
-                apply_surface(40,120,clear,screen);
+                apply_surface(20,120,clear,screen);
                 int a=player1.items[5][1];
 			 int i=0,i1,j;
 			 if(a<0)
@@ -919,7 +919,7 @@ int main( int argc, char* args[] )
 			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
 			 SDL_Color color2={255,294,10};
 			 image=TTF_RenderText_Solid(font2,v1,color2);
-		      apply_surface(50,120,image,screen);
+		      apply_surface(20,120,image,screen);
                }
            }
         if(power1==1 && player1.mana>=10 && player1.hp<=90)
