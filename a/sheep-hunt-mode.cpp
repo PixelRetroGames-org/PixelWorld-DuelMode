@@ -31,7 +31,7 @@ int modul(int a)
     return a;
 }
 Mix_Chunk *sound;
-char level[100]={'b'};
+char level[100]={'a'};
 Mix_Music *music=NULL;
 SDL_Color textColor={0,900,200}, color1={0,900,0},color2={450,0,0},color3{240,240,70};
 TTF_Font *font=NULL;
@@ -561,7 +561,7 @@ void load_level(char *name)
  FILE *fin=fopen(file,"r");
  for(i=0;i<=LIN_MAX;i++)
      for(j=0;j<=COL_MAX;j++)
-         fscanf(fin,"%d ",&map[i][j]);
+         fscanf(fin,"%d",&map[i][j]);
 fclose(fin);
 }
 void print_level()
@@ -582,15 +582,6 @@ void print_level()
            case 5:  {image=SDL_LoadBMP("bricks.bmp");
                      obs[i1][j1]=1;
                      break;}
-           case 6: {
-           	     image=SDL_LoadBMP("city_wall.bmp");
-           	     obs[i1][j1]=1;
-           	     break;
-                   }
-           case 7:  {image=SDL_LoadBMP("water.bmp"); obs[i1][j1]=1; break;}
-           case 8:  {image=SDL_LoadBMP("closed_city_door.bmp"); obs[i1][j1]=1; break;}
-           case 9:  {image=SDL_LoadBMP("opened_city_door.bmp"); break;}
-           case 10: {image=SDL_LoadBMP("dungeon_blue_floor.bmp"); break;}
           }
           //SDL_BlitSurface(image,NULL,screen,NULL);
           apply_surface(j+COL_START*40,i,image,screen);}
@@ -649,39 +640,8 @@ void player_menu()
  image[1][2]=TTF_RenderText_Solid(font,"> Player1 vs Computer",color2);
  image[2][1]=TTF_RenderText_Solid(font,"Computer vs Player2 ",color1);
  image[2][2]=TTF_RenderText_Solid(font,"> Computer vs Player2",color2);
- int N=2;
- int poz;
- clear=SDL_LoadBMP("launcher_clear.bmp");
- background=SDL_LoadBMP("wooden_background.bmp");
- apply_surface(0,0,background,screen);
- apply_surface(450,600-80,image[1][2],screen);
- apply_surface(450,600,image[2][1],screen);
- apply_surface(450,680,image[3][1],screen);
- SDL_Flip(screen);
- poz=1;
- while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
-	  {
-	   up=getkey(VK_UP);
-	   down=getkey(VK_DOWN);
-	   if(up==1 && poz>1)
-		 {
-		  apply_surface(450,680-80*(N-poz),clear,screen);
-		  apply_surface(450,680-80*(N-poz),image[poz][1],screen);
-		  poz--;
-		  apply_surface(450,520+80*(poz-1),clear,screen);
-		  apply_surface(450,520+80*(poz-1),image[poz][2],screen);
-		 }
-	   if(down==1 && poz<N)
-	      {
-		  apply_surface(450,520+80*(poz-1),clear,screen);
-		  apply_surface(450,520+80*(poz-1),image[poz][1],screen);
-		  poz++;
-		  apply_surface(450,680-80*(N-poz),clear,screen);
-		  apply_surface(450,680-80*(N-poz),image[poz][2],screen);
-		 }
-	   SDL_Delay(100);
-	   SDL_Flip(screen);
-	  }
+ image[3][1]=TTF_RenderText_Solid(font,"Computer vs Computer",color1);
+ image[3][2]=TTF_RenderText_Solid(font,"> Computer vs Computer",color2);
 }
 void computer_move_player(int difficulty,int pl)
 {
@@ -854,7 +814,6 @@ void computer_move_player(int difficulty,int pl)
 }
 int main( int argc, char* args[] )
 {
- //player_menu();
  player[1].hp=HP1;
  player[2].hp=HP1,player[2].mana=HP1,player[1].mana=HP1;
  player[1].lin=LIN_MAX/2,player[1].col=COL_MAX/2-5,player[2].lin=LIN_MAX/2,player[2].col=COL_MAX/2+5;
@@ -1135,7 +1094,7 @@ int main( int argc, char* args[] )
                 Mix_PlayChannel(-1, sound, 0);
                }
            }
-        if(up==1 && player[2].lin>=1)
+        if(up==1 && player[2].lin>1)
            {
             time_ex++;
             if(obs[player[2].lin-1][player[2].col]==0)
@@ -1157,7 +1116,7 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=2;
                }
            }
-        if(left==1 && player[2].col>=1)
+        if(left==1 && player[2].col>1)
            {
 		  time_ex++;
             if(obs[player[2].lin][player[2].col-1]==0)
@@ -1183,7 +1142,6 @@ int main( int argc, char* args[] )
                 player[2].skin_state=1;
                }
            }
-	   player[2].get_skin("warrior");
         apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
         if(computer!=1)
            {
@@ -1359,7 +1317,7 @@ int main( int argc, char* args[] )
                 Mix_PlayChannel(-1, sound, 0);
                }
            }
-        if(up==1 && player[1].lin>=1)
+        if(up==1 && player[1].lin>1)
            {
             time_ex++;
             if(obs[player[1].lin-1][player[1].col]==0)
@@ -1381,7 +1339,7 @@ int main( int argc, char* args[] )
                 obs[player[1].lin][player[1].col]=3;
                }
            }
-        if(left==1 && player[1].col>=1)
+        if(left==1 && player[1].col>1)
            {
             time_ex++;
             if(obs[player[1].lin][player[1].col-1]==0)
