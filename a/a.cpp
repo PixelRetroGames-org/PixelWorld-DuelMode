@@ -52,7 +52,7 @@ class player
  int hp,xp,mana,money,items[10][10],items_equipped[10];
  int attack,block,fire_res,fire_dmg,permission_basic,permission,skin_state;
  int lin,col;
- SDL_Surface *default_left_skin,*default_right_skin;
+ SDL_Surface *default_left_skin,*default_right_skin,*default_hit_skin_left,*default_hit_skin_right,*default_dead_skin;
  SDL_Surface *skin;
  public:
  void get_skin(char *prefix)
@@ -91,6 +91,50 @@ class player
 			   x+=6;
 			   break;
 			  }
+          case 9:
+                 {
+			   v[x+1]='o';
+			   v[x+2]='p';
+			   v[x+3]='e';
+			   v[x+4]='n';
+			   v[x+5]='e';
+			   v[x+6]='d';
+			   v[x+7]='_';
+			   v[x+8]='c';
+			   v[x+9]='i';
+			   v[x+10]='t';
+			   v[x+11]='y';
+			   v[x+12]='_';
+			   v[x+13]='d';
+			   v[x+14]='o';
+			   v[x+15]='o';
+			   v[x+16]='r';
+			   x+=16;
+			   break;
+			  }
+		case 10:
+		        {
+		        v[x+1]='b';
+			   v[x+2]='l';
+			   v[x+3]='u';
+			   v[x+4]='e';	
+			   v[x+5]='_';
+			   v[x+6]='d';
+			   v[x+7]='u';
+			   v[x+8]='n';
+			   v[x+9]='g';
+			   v[x+10]='e';
+			   v[x+11]='o';
+			   v[x+12]='n';
+			   v[x+13]='_';
+			   v[x+14]='f';
+			   v[x+15]='l';
+			   v[x+16]='o';
+			   v[x+17]='o';
+			   v[x+18]='r';
+			   x+=18;	
+			    break;
+			   }
 	    }
   v[x+1]='.';
   v[x+2]='b';
@@ -133,6 +177,50 @@ class player
 			   x1+=6;
 			   break;
 			  }
+		case 9:
+                 {
+			   v1[x1+1]='o';
+			   v1[x1+2]='p';
+			   v1[x1+3]='e';
+			   v1[x1+4]='n';
+			   v1[x1+5]='e';
+			   v1[x1+6]='d';
+			   v1[x1+7]='_';
+			   v1[x1+8]='c';
+			   v1[x1+9]='i';
+			   v1[x1+10]='t';
+			   v1[x1+11]='y';
+			   v1[x1+12]='_';
+			   v1[x1+13]='d';
+			   v1[x1+14]='o';
+			   v1[x1+15]='o';
+			   v1[x1+16]='r';
+			   x1+=16;
+			   break;
+			  }
+		case 10:
+		        {
+		        v1[x1+1]='b';
+			   v1[x1+2]='l';
+			   v1[x1+3]='u';
+			   v1[x1+4]='e';	
+			   v1[x1+5]='_';
+			   v1[x1+6]='d';
+			   v1[x1+7]='u';
+			   v1[x1+8]='n';
+			   v1[x1+9]='g';
+			   v1[x1+10]='e';
+			   v1[x1+11]='o';
+			   v1[x1+12]='n';
+			   v1[x1+13]='_';
+			   v1[x1+14]='f';
+			   v1[x1+15]='l';
+			   v1[x1+16]='o';
+			   v1[x1+17]='o';
+			   v1[x1+18]='r';
+			   x1+=18;	
+			    break;
+			   }
 	    }
   v1[x1+1]='_';
   v1[x1+2]='l';
@@ -147,6 +235,61 @@ class player
   x1+=4;
   file=fopen(v1,"r");
   default_left_skin=SDL_LoadBMP(v1);
+  memset(v1,0,1000);
+  v1[0]='h';
+  v1[1]='i';
+  v1[2]='t';
+  v1[3]='_';
+  x1=strlen(v1);
+  y1=strlen(prefix)-1;
+  for(int i=x1;i<=x1+y1;i++)
+      v1[i]=prefix[i-x1];
+  x1=strlen(v1)-1;
+  v1[x1+1]='_';
+  v1[x1+2]='l';
+  v1[x1+3]='e';
+  v1[x1+4]='f';
+  v1[x1+5]='t';    
+  x1+=5;
+  v1[x1+1]='.';
+  v1[x1+2]='b';
+  v1[x1+3]='m';
+  v1[x1+4]='p';
+  x1+=4;
+  default_hit_skin_left=SDL_LoadBMP(v1);
+  memset(v1,0,1000);
+  v1[0]='h';
+  v1[1]='i';
+  v1[2]='t';
+  v1[3]='_';
+  x1=strlen(v1);
+  y1=strlen(prefix)-1;
+  for(int i=x1;i<=x1+y1;i++)
+      v1[i]=prefix[i-x1];
+  x1=strlen(v1)-1;
+  v1[x1+1]='.';
+  v1[x1+2]='b';
+  v1[x1+3]='m';
+  v1[x1+4]='p';
+  x1+=4;
+  default_hit_skin_right=SDL_LoadBMP(v1);
+  memset(v1,0,1000);
+  v1[0]='d';
+  v1[1]='e';
+  v1[2]='a';
+  v1[3]='d';
+  v1[4]='_';
+  x1=strlen(v1);
+  y1=strlen(prefix)-1;
+  for(int i=x1;i<=x1+y1;i++)
+      v1[i]=prefix[i-x1];
+  x1=strlen(v1)-1;
+  v1[x1+1]='.';
+  v1[x1+2]='b';
+  v1[x1+3]='m';
+  v1[x1+4]='p';
+  x1+=4;
+  default_dead_skin=SDL_LoadBMP(v1);
  }
  void load_save(char *nume_salvare,int left_limit)
  {
@@ -546,6 +689,17 @@ void put_back(int l,int c)
 	    	        image=SDL_LoadBMP("bricks.bmp");
 	    	        break;
 			  }
+	    case 4:  {image=SDL_LoadBMP("fire.bmp");  break;}
+           case 5:  {image=SDL_LoadBMP("bricks.bmp");
+                     break;}
+           case 6: {
+           	     image=SDL_LoadBMP("city_wall.bmp");
+           	     break;
+                   }
+           case 7:  {image=SDL_LoadBMP("water.bmp");break;}
+           case 8:  {image=SDL_LoadBMP("closed_city_door.bmp"); break;}
+           case 9:  {image=SDL_LoadBMP("opened_city_door.bmp"); break;}
+           case 10: {image=SDL_LoadBMP("dungeon_blue_floor.bmp"); break;}	  
 	   }
  apply_surface((c+COL_START)*40,l*40,image,screen);
 }
@@ -1113,7 +1267,7 @@ int main( int argc, char* args[] )
                {
 			 player[2].permission_basic=1;
 			 player[1].hp-=10+player[2].attack/10-player[1].block/10;
-			 player[1].skin=SDL_LoadBMP("hit_warrior1_on_grass.bmp");
+			 player[1].skin=player[1].default_hit_skin_right;
 			 player[1].skin_state=1;
 			 apply_surface((player[1].col+COL_START)*40,player[1].lin*40,player[1].skin,screen);
                 player[1].print_hp(1,0);
@@ -1128,7 +1282,7 @@ int main( int argc, char* args[] )
                {
 			 player[2].permission_basic=1;
 			 player[1].hp-=10+player[2].attack/10-player[1].block/10;
-			 player[1].skin=SDL_LoadBMP("hit_warrior1_on_grass_left.bmp");
+			 player[1].skin=player[1].default_hit_skin_left;
 			 player[1].skin_state=0;
 			 apply_surface((player[1].col+COL_START)*40,player[1].lin*40,player[1].skin,screen);
                 player[1].print_hp(1,0);
@@ -1143,8 +1297,17 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].lin--;
+                player[2].get_skin("warrior");
                 obs[player[2].lin][player[2].col]=2;
                }
+            if(player[2].skin_state==1)
+               {
+			 player[2].skin=player[2].default_right_skin;
+               }
+		  else
+               {
+			 player[2].skin=player[2].default_left_skin;
+               }   
            }
         if(down==1 && player[2].lin<COL_MAX)
            {
@@ -1154,8 +1317,17 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].lin++;
+                player[2].get_skin("warrior");
                 obs[player[2].lin][player[2].col]=2;
                }
+            if(player[2].skin_state==1)
+               {
+			 player[2].skin=player[2].default_right_skin;
+               }
+		  else
+               {
+			 player[2].skin=player[2].default_left_skin;
+               }   
            }
         if(left==1 && player[2].col>=1)
            {
@@ -1165,6 +1337,7 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].col--;
+                player[2].get_skin("warrior");
                 obs[player[2].lin][player[2].col]=2;
                 player[2].skin=player[2].default_left_skin;
                 player[2].skin_state=0;
@@ -1178,12 +1351,12 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].col++;
+                player[2].get_skin("warrior");
                 obs[player[2].lin][player[2].col]=2;
                 player[2].skin=player[2].default_right_skin;
                 player[2].skin_state=1;
                }
            }
-	   player[2].get_skin("warrior");
         apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
         if(computer!=1)
            {
@@ -1335,7 +1508,7 @@ int main( int argc, char* args[] )
 			 player[2].hp-=10+player[1].attack/10-player[2].block/10;
                 //SDL_FreeSurface(player);
                 player[2].print_hp(1,COL_MAX+COL_START+2);
-                player[2].skin=SDL_LoadBMP("hit_warrior_on_grass.bmp");
+                player[2].skin=player[2].default_hit_skin_right;
                 player[2].skin_state=1;
                 apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
                 SDL_Flip(screen);
@@ -1352,7 +1525,7 @@ int main( int argc, char* args[] )
 			    player[2].hp-=10+player[1].attack/10-player[2].block/10;
                 player[2].print_hp(1,COL_MAX+COL_START+2);
                 //SDL_FreeSurface(player);
-                player[2].skin=SDL_LoadBMP("hit_warrior_on_grass_left.bmp");
+                player[2].skin=player[2].default_hit_skin_left;
                 player[2].skin_state=0;
                 apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
                 SDL_Flip(screen);
@@ -1367,28 +1540,47 @@ int main( int argc, char* args[] )
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].lin--;
+                player[1].get_skin("warrior1"); 	
                 obs[player[1].lin][player[1].col]=3;
                }
+            if(player[1].skin_state==1)
+               {
+			 player[1].skin=player[1].default_right_skin;
+               }
+		  else
+               {
+			 player[1].skin=player[1].default_left_skin;
+               }   
            }
         if(down==1 && player[1].lin<COL_MAX)
-           {
+           {	
 		  time_ex++;
             if(obs[player[1].lin+1][player[1].col]==0)
                {
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].lin++;
+                player[1].get_skin("warrior1"); 	
                 obs[player[1].lin][player[1].col]=3;
                }
+            if(player[1].skin_state==1)
+               {
+			 player[1].skin=player[1].default_right_skin;
+               }
+		  else
+               {
+			 player[1].skin=player[1].default_left_skin;
+               }   
            }
         if(left==1 && player[1].col>=1)
-           {
+           {	
             time_ex++;
             if(obs[player[1].lin][player[1].col-1]==0)
 			{
 			 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].col--;
+                player[1].get_skin("warrior1"); 	
                 obs[player[1].lin][player[1].col]=3;
                 player[1].skin=player[1].default_left_skin;
                 player[1].skin_state=0;
@@ -1402,6 +1594,7 @@ int main( int argc, char* args[] )
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].col++;
+                player[1].get_skin("warrior1"); 	
                 obs[player[1].lin][player[1].col]=3;
                 player[1].skin=player[1].default_right_skin;
                 player[1].skin_state=1;
@@ -1414,7 +1607,7 @@ int main( int argc, char* args[] )
        }
  if(player[2].hp>player[1].hp)
     {
-     player[1].skin=SDL_LoadBMP("dead_warrior1.bmp");
+     player[1].skin=player[1].default_dead_skin;
      apply_surface((player[1].col+COL_START)*40,player[1].lin*40,player[1].skin,screen);
      message=TTF_RenderText_Solid(font,"Player 2 wins!",textColor);
      player[2].money+=player[2].hp+player[2].mana+player[1].money/50;
@@ -1430,7 +1623,7 @@ int main( int argc, char* args[] )
  else
     if(player[2].hp!=player[1].hp)
        {
-        player[2].skin=SDL_LoadBMP("dead_warrior.bmp");
+        player[2].skin=player[2].default_dead_skin;
         apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
         message=TTF_RenderText_Solid(font,"Player 1 wins!",textColor);
         player[1].money+=player[1].hp+player[1].mana+player[2].money/50;
@@ -1445,9 +1638,9 @@ int main( int argc, char* args[] )
        }
     else
        {
-        player[1].skin=SDL_LoadBMP("dead_warrior1.bmp");
+        player[1].skin=player[1].default_dead_skin;
         apply_surface((player[1].col+COL_START)*40,player[1].lin*40,player[1].skin,screen);
-        player[2].skin=SDL_LoadBMP("dead_warrior.bmp");
+        player[2].skin=player[2].default_dead_skin;
         apply_surface((player[2].col+COL_START)*40,player[2].lin*40,player[2].skin,screen);
 	   message=TTF_RenderText_Solid(font,"Round draw!",textColor);
         int cash=(player[2].money+player[1].money)/2/25;
