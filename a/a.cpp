@@ -52,6 +52,7 @@ class player
  int hp,xp,mana,money,items[10][10],items_equipped[10];
  int attack,block,fire_res,fire_dmg,permission_basic,permission,skin_state;
  int lin,col;
+ char prefix[100];
  SDL_Surface *default_left_skin,*default_right_skin,*default_hit_skin_left,*default_hit_skin_right,*default_dead_skin;
  SDL_Surface *skin;
  public:
@@ -117,7 +118,7 @@ class player
 		        v[x+1]='b';
 			   v[x+2]='l';
 			   v[x+3]='u';
-			   v[x+4]='e';	
+			   v[x+4]='e';
 			   v[x+5]='_';
 			   v[x+6]='d';
 			   v[x+7]='u';
@@ -132,7 +133,53 @@ class player
 			   v[x+16]='o';
 			   v[x+17]='o';
 			   v[x+18]='r';
-			   x+=18;	
+			   x+=18;
+			    break;
+			   }
+		case 12:
+		        {
+		        v[x+1]='g';
+			   v[x+2]='r';
+			   v[x+3]='e';
+			   v[x+4]='e';
+			   v[x+5]='n';
+			   v[x+6]='_';
+			   v[x+7]='d';
+			   v[x+8]='u';
+			   v[x+9]='n';
+			   v[x+10]='g';
+			   v[x+11]='e';
+			   v[x+12]='o';
+			   v[x+13]='n';
+			   v[x+14]='_';
+			   v[x+15]='f';
+			   v[x+16]='l';
+			   v[x+17]='o';
+			   v[x+18]='o';
+			   v[x+19]='r';
+			   x+=19;
+			    break;
+			   }
+		case 14:
+		        {
+		        v[x+1]='r';
+			   v[x+2]='e';
+			   v[x+3]='d';
+			   v[x+4]='_';
+			   v[x+5]='d';
+			   v[x+6]='u';
+			   v[x+7]='n';
+			   v[x+8]='g';
+			   v[x+9]='e';
+			   v[x+10]='o';
+			   v[x+11]='n';
+			   v[x+12]='_';
+			   v[x+13]='f';
+			   v[x+14]='l';
+			   v[x+15]='o';
+			   v[x+16]='o';
+			   v[x+17]='r';
+			   x+=17;
 			    break;
 			   }
 	    }
@@ -203,7 +250,7 @@ class player
 		        v1[x1+1]='b';
 			   v1[x1+2]='l';
 			   v1[x1+3]='u';
-			   v1[x1+4]='e';	
+			   v1[x1+4]='e';
 			   v1[x1+5]='_';
 			   v1[x1+6]='d';
 			   v1[x1+7]='u';
@@ -218,7 +265,53 @@ class player
 			   v1[x1+16]='o';
 			   v1[x1+17]='o';
 			   v1[x1+18]='r';
-			   x1+=18;	
+			   x1+=18;
+			    break;
+			   }
+	     case 12:
+		        {
+		        v1[x1+1]='g';
+			   v1[x1+2]='r';
+			   v1[x1+3]='e';
+			   v1[x1+4]='e';
+			   v1[x1+5]='n';
+			   v1[x1+6]='_';
+			   v1[x1+7]='d';
+			   v1[x1+8]='u';
+			   v1[x1+9]='n';
+			   v1[x1+10]='g';
+			   v1[x1+11]='e';
+			   v1[x1+12]='o';
+			   v1[x1+13]='n';
+			   v1[x1+14]='_';
+			   v1[x1+15]='f';
+			   v1[x1+16]='l';
+			   v1[x1+17]='o';
+			   v1[x1+18]='o';
+			   v1[x1+19]='r';
+			   x1+=19;
+			    break;
+			   }
+		case 14:
+		        {
+		        v1[x1+1]='r';
+			   v1[x1+2]='e';
+			   v1[x1+3]='d';
+			   v1[x1+4]='_';
+			   v1[x1+5]='d';
+			   v1[x1+6]='u';
+			   v1[x1+7]='n';
+			   v1[x1+8]='g';
+			   v1[x1+9]='e';
+			   v1[x1+10]='o';
+			   v1[x1+11]='n';
+			   v1[x1+12]='_';
+			   v1[x1+13]='f';
+			   v1[x1+14]='l';
+			   v1[x1+15]='o';
+			   v1[x1+16]='o';
+			   v1[x1+17]='r';
+			   x1+=17;
 			    break;
 			   }
 	    }
@@ -249,7 +342,7 @@ class player
   v1[x1+2]='l';
   v1[x1+3]='e';
   v1[x1+4]='f';
-  v1[x1+5]='t';    
+  v1[x1+5]='t';
   x1+=5;
   v1[x1+1]='.';
   v1[x1+2]='b';
@@ -699,7 +792,12 @@ void put_back(int l,int c)
            case 7:  {image=SDL_LoadBMP("water.bmp");break;}
            case 8:  {image=SDL_LoadBMP("closed_city_door.bmp"); break;}
            case 9:  {image=SDL_LoadBMP("opened_city_door.bmp"); break;}
-           case 10: {image=SDL_LoadBMP("dungeon_blue_floor.bmp"); break;}	  
+           case 10: {image=SDL_LoadBMP("dungeon_blue_floor.bmp"); break;}
+	      case 11: {image=SDL_LoadBMP("dungeon_blue_wall.bmp"); break;}
+           case 12: {image=SDL_LoadBMP("dungeon_green_floor.bmp"); break;}
+           case 13: {image=SDL_LoadBMP("dungeon_green_wall.bmp"); break;}
+           case 14: {image=SDL_LoadBMP("dungeon_red_floor.bmp"); break;}
+           case 15: {image=SDL_LoadBMP("dungeon_red_wall.bmp"); break;}
 	   }
  apply_surface((c+COL_START)*40,l*40,image,screen);
 }
@@ -745,7 +843,12 @@ void print_level()
            case 8:  {image=SDL_LoadBMP("closed_city_door.bmp"); obs[i1][j1]=1; break;}
            case 9:  {image=SDL_LoadBMP("opened_city_door.bmp"); break;}
            case 10: {image=SDL_LoadBMP("dungeon_blue_floor.bmp"); break;}
-          }
+           case 11: {image=SDL_LoadBMP("dungeon_blue_wall.bmp"); obs[i1][j1]=1; break;}
+           case 12: {image=SDL_LoadBMP("dungeon_green_floor.bmp"); break;}
+           case 13: {image=SDL_LoadBMP("dungeon_green_wall.bmp"); obs[i1][j1]=1; break;}
+           case 14: {image=SDL_LoadBMP("dungeon_red_floor.bmp"); break;}
+           case 15: {image=SDL_LoadBMP("dungeon_red_wall.bmp"); obs[i1][j1]=1; break;}
+           }
           //SDL_BlitSurface(image,NULL,screen,NULL);
           apply_surface(j+COL_START*40,i,image,screen);}
          }
@@ -782,14 +885,14 @@ void welcome_message()
 }
 void put_arena_wall()
 {
- for(int i=1;i<=LIN_MAX-1;i++)
+ for(int i=0;i<=LIN_MAX;i++)
 	{
 	 map[i][COL_MAX/2]=5;
 	}
 }
 void clear_arena_wall()
 {
- for(int i=1;i<=LIN_MAX-1;i++)
+ for(int i=0;i<=LIN_MAX;i++)
 	{
 	 map[i][COL_MAX/2]=2;
 	 obs[i][COL_MAX/2]=0;
@@ -1016,7 +1119,7 @@ int main( int argc, char* args[] )
  SDL_Init(SDL_INIT_EVERYTHING);
  Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
- screen=SDL_SetVideoMode(0,0,32,SDL_SWSURFACE);
+ screen=SDL_SetVideoMode(0,0,32,SDL_HWSURFACE);
  TTF_Init();
  font=TTF_OpenFont("font2.ttf",40);
  music=Mix_LoadMUS("bck.wav");
@@ -1059,6 +1162,22 @@ int main( int argc, char* args[] )
  put_arena_wall();
  player[1].load_save("player1",0);
  player[2].load_save("player2",27*40);
+ player[1].prefix[0]='w';
+ player[1].prefix[1]='a';
+ player[1].prefix[2]='r';
+ player[1].prefix[3]='r';
+ player[1].prefix[4]='i';
+ player[1].prefix[5]='o';
+ player[1].prefix[6]='r';
+ player[1].prefix[7]='1';
+
+ player[2].prefix[0]='w';
+ player[2].prefix[1]='a';
+ player[2].prefix[2]='r';
+ player[2].prefix[3]='r';
+ player[2].prefix[4]='i';
+ player[2].prefix[5]='o';
+ player[2].prefix[6]='r';
  player[1].skin_state=1;
  player[2].skin_state=0;
  while(keystates[SDLK_ESCAPE]==NULL && player[1].hp>0 && player[2].hp>0)
@@ -1091,8 +1210,8 @@ int main( int argc, char* args[] )
            }
 	   if(t-t2>=1)
 		 {
-            player[1].get_skin("warrior1");
-            player[2].get_skin("warrior");
+            player[1].get_skin(player[1].prefix);
+            player[2].get_skin(player[2].prefix);
             if(player[1].skin_state==1)
                {
 			 player[1].skin=player[1].default_right_skin;
@@ -1297,7 +1416,8 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].lin--;
-                player[2].get_skin("warrior");
+                if(map[player[2].lin][player[2].col]!=map[player[2].lin+1][player[2].col])
+                   player[2].get_skin(player[2].prefix);
                 obs[player[2].lin][player[2].col]=2;
                }
             if(player[2].skin_state==1)
@@ -1307,7 +1427,7 @@ int main( int argc, char* args[] )
 		  else
                {
 			 player[2].skin=player[2].default_left_skin;
-               }   
+               }
            }
         if(down==1 && player[2].lin<COL_MAX)
            {
@@ -1317,7 +1437,8 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].lin++;
-                player[2].get_skin("warrior");
+                if(map[player[2].lin][player[2].col]!=map[player[2].lin-1][player[2].col])
+                   player[2].get_skin(player[2].prefix);
                 obs[player[2].lin][player[2].col]=2;
                }
             if(player[2].skin_state==1)
@@ -1327,7 +1448,7 @@ int main( int argc, char* args[] )
 		  else
                {
 			 player[2].skin=player[2].default_left_skin;
-               }   
+               }
            }
         if(left==1 && player[2].col>=1)
            {
@@ -1337,7 +1458,8 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].col--;
-                player[2].get_skin("warrior");
+                if(map[player[2].lin][player[2].col]!=map[player[2].lin][player[2].col+1])
+                   player[2].get_skin(player[2].prefix);
                 obs[player[2].lin][player[2].col]=2;
                 player[2].skin=player[2].default_left_skin;
                 player[2].skin_state=0;
@@ -1351,7 +1473,8 @@ int main( int argc, char* args[] )
                 obs[player[2].lin][player[2].col]=0;
 			 put_back(player[2].lin,player[2].col);
                 player[2].col++;
-                player[2].get_skin("warrior");
+                if(map[player[2].lin][player[2].col]!=map[player[2].lin][player[2].col-1])
+                   player[2].get_skin(player[2].prefix);
                 obs[player[2].lin][player[2].col]=2;
                 player[2].skin=player[2].default_right_skin;
                 player[2].skin_state=1;
@@ -1540,7 +1663,8 @@ int main( int argc, char* args[] )
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].lin--;
-                player[1].get_skin("warrior1"); 	
+                if(map[player[1].lin][player[1].col]!=map[player[1].lin+1][player[1].col])
+                   player[1].get_skin(player[1].prefix);
                 obs[player[1].lin][player[1].col]=3;
                }
             if(player[1].skin_state==1)
@@ -1550,18 +1674,19 @@ int main( int argc, char* args[] )
 		  else
                {
 			 player[1].skin=player[1].default_left_skin;
-               }   
+               }
            }
         if(down==1 && player[1].lin<COL_MAX)
-           {	
+           {
 		  time_ex++;
             if(obs[player[1].lin+1][player[1].col]==0)
                {
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].lin++;
-                player[1].get_skin("warrior1"); 	
-                obs[player[1].lin][player[1].col]=3;
+                if(map[player[1].lin][player[1].col]!=map[player[1].lin-1][player[1].col])
+                   player[1].get_skin(player[1].prefix);
+			 obs[player[1].lin][player[1].col]=3;
                }
             if(player[1].skin_state==1)
                {
@@ -1570,17 +1695,18 @@ int main( int argc, char* args[] )
 		  else
                {
 			 player[1].skin=player[1].default_left_skin;
-               }   
+               }
            }
         if(left==1 && player[1].col>=1)
-           {	
+           {
             time_ex++;
             if(obs[player[1].lin][player[1].col-1]==0)
 			{
 			 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].col--;
-                player[1].get_skin("warrior1"); 	
+                if(map[player[1].lin][player[1].col]!=map[player[1].lin][player[1].col+1])
+                   player[1].get_skin(player[1].prefix);
                 obs[player[1].lin][player[1].col]=3;
                 player[1].skin=player[1].default_left_skin;
                 player[1].skin_state=0;
@@ -1594,7 +1720,8 @@ int main( int argc, char* args[] )
                 obs[player[1].lin][player[1].col]=0;
 			 put_back(player[1].lin,player[1].col);
                 player[1].col++;
-                player[1].get_skin("warrior1"); 	
+                if(map[player[1].lin][player[1].col]!=map[player[1].lin][player[1].col-1])
+                   player[1].get_skin(player[1].prefix);
                 obs[player[1].lin][player[1].col]=3;
                 player[1].skin=player[1].default_right_skin;
                 player[1].skin_state=1;
