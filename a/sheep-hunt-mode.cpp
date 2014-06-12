@@ -31,7 +31,7 @@ int modul(int a)
     return a;
 }
 Mix_Chunk *sound;
-char level[100]={'b'};
+char level[100]={'x'};
 Mix_Music *music=NULL;
 SDL_Color textColor={0,900,200}, color1={0,900,0},color2={450,0,0},color3{240,240,70};
 TTF_Font *font=NULL;
@@ -43,6 +43,7 @@ int time_ex,beg1,beg2,end1,end2,t,t1,t2,flag_player;
 int power1,power2,power3,power4;
 int up,down,right,left,atack_left,atack_right,atack1_left,atack1_right,mana_pot,hp_pot;
 int map[LIN_MAX+3][COL_MAX+3],obs[LIN_MAX+3][COL_MAX+3];
+int level_max_lin,level_max_col;
 SDL_Surface *image=NULL;
 SDL_Surface *screen=NULL;
 SDL_Surface *background=NULL;
@@ -811,8 +812,9 @@ void load_level(char *name)
  file[n+3]='l';
  file[n+4]=NULL;
  FILE *fin=fopen(file,"r");
- for(i=0;i<=LIN_MAX;i++)
-     for(j=0;j<=COL_MAX;j++)
+ fscanf(fin,"%d %d",&level_max_lin,&level_max_col);
+ for(i=0;i<=level_max_lin;i++)
+     for(j=0;j<=level_max_col;j++)
          fscanf(fin,"%d ",&map[i][j]);
 fclose(fin);
 }
@@ -1114,7 +1116,7 @@ int main( int argc, char* args[] )
  //player_menu();
  player[1].hp=HP1;
  player[2].hp=HP1,player[2].mana=HP1,player[1].mana=HP1;
- player[1].lin=LIN_MAX/2,player[1].col=COL_MAX/2-5,player[2].lin=LIN_MAX/2,player[2].col=COL_MAX/2+5;
+ player[1].lin=1,player[1].col=1;
  player[1].money,player[2].money,player[2].xp,player[1].xp;
  SDL_Init(SDL_INIT_EVERYTHING);
  Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
@@ -1134,20 +1136,10 @@ int main( int argc, char* args[] )
  print_background();
  burn=SDL_LoadBMP("fire.bmp");
  background=SDL_LoadBMP("name_background.bmp");
- message=TTF_RenderText_Solid(font,"Player 2",color1);
- apply_surface((COL_MAX+COL_START+2)*40,0,background,screen);
- apply_surface((COL_MAX+COL_START+2)*40+5,0,message,screen);
- SDL_Flip(screen);
  message=TTF_RenderText_Solid(font,"Player 1",color1);
  apply_surface((0)*40,0,background,screen);
  apply_surface((0)*40+5,0,message,screen);
  SDL_Flip(screen);
- player[1].default_left_skin=SDL_LoadBMP("warrior1_on_grass_left.bmp");
- player[1].default_right_skin=SDL_LoadBMP("warrior1_on_grass.bmp");
- player[1].skin=SDL_LoadBMP("warrior1_on_grass.bmp");
- player[2].default_left_skin=SDL_LoadBMP("warrior_on_grass_left.bmp");
- player[2].default_right_skin=SDL_LoadBMP("warrior_on_grass.bmp");
- player[2].skin=SDL_LoadBMP("warrior_on_grass.bmp");
  obs[player[1].lin][player[1].col]=3;
  player[1].print_hp(1,0);
  player[1].print_mana(2,0);
@@ -1158,7 +1150,6 @@ int main( int argc, char* args[] )
  int start_t=0;
  put_arena_wall();
  player[1].load_save("player1",0);
- player[2].load_save("player2",27*40);
  player[1].prefix[0]='w';
  player[1].prefix[1]='a';
  player[1].prefix[2]='r';
@@ -1166,15 +1157,7 @@ int main( int argc, char* args[] )
  player[1].prefix[4]='i';
  player[1].prefix[5]='o';
  player[1].prefix[6]='r';
- player[1].prefix[7]='1';
 
- player[2].prefix[0]='w';
- player[2].prefix[1]='a';
- player[2].prefix[2]='r';
- player[2].prefix[3]='r';
- player[2].prefix[4]='i';
- player[2].prefix[5]='o';
- player[2].prefix[6]='r';
  player[1].skin_state=1;
  player[2].skin_state=0;
  while(keystates[SDLK_ESCAPE]==NULL && player[1].hp>0 && player[2].hp>0)
