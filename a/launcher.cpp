@@ -34,7 +34,7 @@ int main( int argc, char* args[] )
   image[2][3]=SDL_LoadBMP("duel_mode_click.bmp");
   image[3][1]=SDL_LoadBMP("credits.bmp");
   image[3][2]=SDL_LoadBMP("credits_bold.bmp");
-  image[1][3]=SDL_LoadBMP("credits_click.bmp");
+  image[3][3]=SDL_LoadBMP("credits_click.bmp");
   clear=SDL_LoadBMP("launcher_clear.bmp");
   background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
