@@ -26,12 +26,15 @@ int main( int argc, char* args[] )
   TTF_Init();
   font=TTF_OpenFont("font2.ttf",50);
   screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
-  image[1][1]=TTF_RenderText_Solid(font,"Single Player Mode-Coming Soon",color1);
-  image[1][2]=TTF_RenderText_Solid(font,"> Single Player Mode-Coming Soon",color2);
+  image[1][1]=SDL_LoadBMP("single_player_mode.bmp");
+  image[1][2]=SDL_LoadBMP("single_player_mode_bold.bmp");
+  image[1][3]=SDL_LoadBMP("single_player_mode_click.bmp");
   image[2][1]=SDL_LoadBMP("duel_mode.bmp");
-  image[2][2]=TTF_RenderText_Solid(font,"duel_mode_bold.bmp",color2);
-  image[3][1]=TTF_RenderText_Solid(font,"credits.bmp",color1);
-  image[3][2]=TTF_RenderText_Solid(font,"credits_bold.bmp",color2);
+  image[2][2]=SDL_LoadBMP("duel_mode_bold.bmp");
+  image[2][3]=SDL_LoadBMP("duel_mode_click.bmp");
+  image[3][1]=SDL_LoadBMP("credits.bmp");
+  image[3][2]=SDL_LoadBMP("credits_bold.bmp");
+  image[1][3]=SDL_LoadBMP("credits_click.bmp");
   clear=SDL_LoadBMP("launcher_clear.bmp");
   background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
@@ -65,6 +68,8 @@ int main( int argc, char* args[] )
            }
  if(getkey(VK_ESCAPE)==0)
     {
+     apply_surface(450,520+80*(poz-1),clear,screen);
+	apply_surface(450,520+80*(poz-1),image[poz][3],screen);
      switch(poz)
 	       {
 	        case 1:break;
