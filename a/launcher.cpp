@@ -28,7 +28,7 @@ int main( int argc, char* args[] )
   screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
   image[1][1]=TTF_RenderText_Solid(font,"Single Player Mode-Coming Soon",color1);
   image[1][2]=TTF_RenderText_Solid(font,"> Single Player Mode-Coming Soon",color2);
-  image[2][1]=TTF_RenderText_Solid(font,"Duel Mode ",color1);
+  image[2][1]=SDL_LoadBMP("duel_mode.bmp");
   image[2][2]=TTF_RenderText_Solid(font,"> Duel Mode",color2);
   image[3][1]=TTF_RenderText_Solid(font,"Credits",color1);
   image[3][2]=TTF_RenderText_Solid(font,"> Credits",color2);
