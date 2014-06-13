@@ -1119,7 +1119,7 @@ int main( int argc, char* args[] )
  SDL_Init(SDL_INIT_EVERYTHING);
  Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 1, 4096 );
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
- screen=SDL_SetVideoMode(0,0,32,SDL_HWSURFACE);
+ screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  TTF_Init();
  font=TTF_OpenFont("font2.ttf",40);
  music=Mix_LoadMUS("bck.wav");
