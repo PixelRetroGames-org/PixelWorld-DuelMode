@@ -29,9 +29,9 @@ int main( int argc, char* args[] )
   image[1][1]=TTF_RenderText_Solid(font,"Single Player Mode-Coming Soon",color1);
   image[1][2]=TTF_RenderText_Solid(font,"> Single Player Mode-Coming Soon",color2);
   image[2][1]=SDL_LoadBMP("duel_mode.bmp");
-  image[2][2]=TTF_RenderText_Solid(font,"> Duel Mode",color2);
-  image[3][1]=TTF_RenderText_Solid(font,"Credits",color1);
-  image[3][2]=TTF_RenderText_Solid(font,"> Credits",color2);
+  image[2][2]=TTF_RenderText_Solid(font,"duel_mode_bold.bmp",color2);
+  image[3][1]=TTF_RenderText_Solid(font,"credits.bmp",color1);
+  image[3][2]=TTF_RenderText_Solid(font,"credits_bold.bmp",color2);
   clear=SDL_LoadBMP("launcher_clear.bmp");
   background=SDL_LoadBMP("launcher_background_image.bmp");
   apply_surface(0,0,background,screen);
