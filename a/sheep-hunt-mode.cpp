@@ -42,11 +42,37 @@ Uint8 *keystates=SDL_GetKeyState(NULL);
 int time_ex,beg1,beg2,end1,end2,t,t1,t2,flag_player;
 int power1,power2,power3,power4;
 int up,down,right,left,atack_left,atack_right,atack1_left,atack1_right,mana_pot,hp_pot;
-int map[LIN_MAX+3][COL_MAX+3],obs[LIN_MAX+3][COL_MAX+3];
+int **map,**obs;
 int level_max_lin,level_max_col;
 SDL_Surface *image=NULL;
 SDL_Surface *screen=NULL;
 SDL_Surface *background=NULL;
+char file[100];
+void load_level(char *name)
+{
+ int n=strlen(name),i,j;
+ strcpy(file,name);
+ file[n]='.';
+ file[n+1]='l';
+ file[n+2]='v';
+ file[n+3]='l';
+ file[n+4]=NULL;
+ FILE *fin=fopen(file,"r");
+ fscanf(fin,"%d %d",&level_max_lin,&level_max_col);
+ map=new int*[level_max_lin+5];
+ for(int i=0;i<level_max_lin+5;i++)
+     map[i]=new int[level_max_col+5];
+ obs=new int*[level_max_lin+5];
+ for(int i=0;i<level_max_lin+5;i++)
+     obs[i]=new int[level_max_col+5];
+ for(i=0;i<=level_max_lin+3;i++)
+     for(j=level_max_col;j<=level_max_col+3;j++)
+         map[i][j]=0;
+ for(i=0;i<=level_max_lin;i++)
+     for(j=0;j<=level_max_col;j++)
+         fscanf(fin,"%d ",&map[i][j]);
+fclose(fin);
+}
 class player
 {
  public:
@@ -752,7 +778,6 @@ class player
  }
 };
 player player[5];
-char file[100];
 int max(int a,int b)
 {
  if(a>b)
@@ -802,27 +827,11 @@ void put_back(int l,int c)
 	   }
  apply_surface((c+COL_START)*40,l*40,image,screen);
 }
-void load_level(char *name)
-{
- int n=strlen(name),i,j;
- strcpy(file,name);
- file[n]='.';
- file[n+1]='l';
- file[n+2]='v';
- file[n+3]='l';
- file[n+4]=NULL;
- FILE *fin=fopen(file,"r");
- fscanf(fin,"%d %d",&level_max_lin,&level_max_col);
- for(i=0;i<=level_max_lin;i++)
-     for(j=0;j<=level_max_col;j++)
-         fscanf(fin,"%d ",&map[i][j]);
-fclose(fin);
-}
 void print_level()
 {
  int i,j,i1=1,j1=1;
- for(i=0,i1=0;i1<=LIN_MAX;i+=40,i1++)
-     for(j=0,j1=0;j1<=COL_MAX;j+=40,j1++)
+ for(i=0,i1=0;i1<=level_max_lin;i+=40,i1++)
+     for(j=0,j1=0;j1<=level_max_col;j+=40,j1++)
          {
          	if(obs[i1][j1]<=1){
           switch(map[i1][j1])
@@ -887,17 +896,17 @@ void welcome_message()
 }
 void put_arena_wall()
 {
- for(int i=0;i<=LIN_MAX;i++)
+ for(int i=0;i<=level_max_lin;i++)
 	{
-	 map[i][COL_MAX/2]=5;
+	 map[i][level_max_col/2]=5;
 	}
 }
 void clear_arena_wall()
 {
- for(int i=0;i<=LIN_MAX;i++)
+ for(int i=0;i<=level_max_lin;i++)
 	{
-	 map[i][COL_MAX/2]=2;
-	 obs[i][COL_MAX/2]=0;
+	 map[i][level_max_col/2]=2;
+	 obs[i][level_max_col/2]=0;
 	}
  load_level(level);
 }
@@ -1302,16 +1311,16 @@ int main( int argc, char* args[] )
                beg1=1;
             else
                beg1=player[1].lin-2;
-            if(player[1].lin+2>=LIN_MAX)
-               end1=LIN_MAX;
+            if(player[1].lin+2>=level_max_lin)
+               end1=level_max_lin;
             else
                end1=player[1].lin+2;
             if(player[1].col-2<=0)
                beg2=1;
             else
                beg2=player[1].col-2;
-            if(player[1].col+2>=COL_MAX)
-               end2=COL_MAX;
+            if(player[1].col+2>=level_max_col)
+               end2=level_max_col;
             else
                end2=player[1].col+2;
             for(int i=beg1;i<=end1;i++)
@@ -1367,7 +1376,7 @@ int main( int argc, char* args[] )
                 Mix_PlayChannel(-1, sound, 0);
                }
            }
-        if(up==1 && player[1].lin>=1)
+        if(up==1 && player[1].lin>1)
            {
             time_ex++;
             if(obs[player[1].lin-1][player[1].col]==0)
@@ -1388,7 +1397,7 @@ int main( int argc, char* args[] )
 			 player[1].skin=player[1].default_left_skin;
                }
            }
-        if(down==1 && player[1].lin<COL_MAX)
+        if(down==1 && player[1].lin<level_max_lin)
            {
 		  time_ex++;
             if(obs[player[1].lin+1][player[1].col]==0)
@@ -1409,7 +1418,7 @@ int main( int argc, char* args[] )
 			 player[1].skin=player[1].default_left_skin;
                }
            }
-        if(left==1 && player[1].col>=1)
+        if(left==1 && player[1].col>1)
            {
             time_ex++;
             if(obs[player[1].lin][player[1].col-1]==0)
@@ -1424,7 +1433,7 @@ int main( int argc, char* args[] )
                 player[1].skin_state=0;
                }
            }
-        if(right==1 && player[1].col<LIN_MAX)
+        if(right==1 && player[1].col<level_max_col)
            {
             time_ex++;
             if(obs[player[1].lin][player[1].col+1]==0)
