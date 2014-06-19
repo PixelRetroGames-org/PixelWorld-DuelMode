@@ -5,11 +5,12 @@
 #include<cstdio>
 #include "alex.h"
 #include<windows.h>
-#define N 3
 SDL_Surface *screen,*background;
 SDL_Surface *image[5][3],*message,*clear;
 SDL_Color color1={0,900,0},color2={450,0,0},color3{240,240,70};
 Mix_Music *music=NULL;
+int difficulty,computer;
+TTF_Font *font=NULL;
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
 {
  SDL_Rect offset;
@@ -18,63 +19,164 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
  SDL_BlitSurface(source,NULL,destination,&offset);
  SDL_Flip(screen);
 }
+void DuelMode_player_menu()
+{
+ SDL_Surface *bck=NULL,*image[5][5];
+ image[1][1]=TTF_RenderText_Solid(font,"Player1 vs Computer",color1);
+ image[1][2]=TTF_RenderText_Solid(font,"> Player1 vs Computer",color2);
+ image[2][1]=TTF_RenderText_Solid(font,"Computer vs Player2 ",color1);
+ image[2][2]=TTF_RenderText_Solid(font,"> Computer vs Player2",color2);
+ int N=2;
+ int poz;
+ int up,down,left,right;
+ apply_surface(0,0,background,screen);
+ apply_surface(450,600-80,image[1][2],screen);
+ apply_surface(450,600,image[2][1],screen);
+ SDL_Flip(screen);
+ poz=1;
+ while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
+	  {
+	   up=getkey(VK_UP);
+	   down=getkey(VK_DOWN);
+	   if(up==1 && poz>1)
+		 {
+		  apply_surface(450,600-80*(N-poz),clear,screen);
+		  apply_surface(450,600-80*(N-poz),image[poz][1],screen);
+		  poz--;
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][2],screen);
+		 }
+	   if(down==1 && poz<N)
+	      {
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][1],screen);
+		  poz++;
+		  apply_surface(450,600-80*(N-poz),clear,screen);
+		  apply_surface(450,600-80*(N-poz),image[poz][2],screen);
+		 }
+	   SDL_Delay(100);
+	   SDL_Flip(screen);
+	  }
+ computer=N-poz+1;
+ SDL_Delay(200);
+ image[1][1]=TTF_RenderText_Solid(font,"Easy",color1);
+ image[1][2]=TTF_RenderText_Solid(font,">Easy",color2);
+ image[2][1]=TTF_RenderText_Solid(font,"Normal",color1);
+ image[2][2]=TTF_RenderText_Solid(font,">Normal",color2);
+ image[3][1]=TTF_RenderText_Solid(font,"Hard",color1);
+ image[3][2]=TTF_RenderText_Solid(font,">Hard",color2);
+ image[4][1]=TTF_RenderText_Solid(font,"Insane",color1);
+ image[4][2]=TTF_RenderText_Solid(font,">Insane",color2);
+ N=4;
+ apply_surface(0,0,background,screen);
+ apply_surface(450,600-80,image[1][2],screen);
+ apply_surface(450,600,image[2][1],screen);
+ apply_surface(450,680,image[3][1],screen);
+ apply_surface(450,760,image[4][1],screen);
+ SDL_Flip(screen);
+ poz=1;
+ while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
+	  {
+	   up=getkey(VK_UP);
+	   down=getkey(VK_DOWN);
+	   if(up==1 && poz>1)
+		 {
+		  apply_surface(450,760-80*(N-poz),clear,screen);
+		  apply_surface(450,760-80*(N-poz),image[poz][1],screen);
+		  poz--;
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][2],screen);
+		 }
+	   if(down==1 && poz<N)
+	      {
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][1],screen);
+		  poz++;
+		  apply_surface(450,760-80*(N-poz),clear,screen);
+		  apply_surface(450,760-80*(N-poz),image[poz][2],screen);
+		 }
+	   SDL_Delay(100);
+	   SDL_Flip(screen);
+	  }
+ difficulty=poz;
+}
 int up,down,poz=1;
-TTF_Font *font=NULL;
 int main( int argc, char* args[] )
-{ mmain:
-  SDL_Init(SDL_INIT_EVERYTHING);
-  TTF_Init();
-  font=TTF_OpenFont("font2.ttf",50);
-  screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
-  image[1][1]=SDL_LoadBMP("single_player_mode.bmp");
-  image[1][2]=SDL_LoadBMP("single_player_mode_bold.bmp");
-  image[1][3]=SDL_LoadBMP("single_player_mode_click.bmp");
-  image[2][1]=SDL_LoadBMP("duel_mode.bmp");
-  image[2][2]=SDL_LoadBMP("duel_mode_bold.bmp");
-  image[2][3]=SDL_LoadBMP("duel_mode_click.bmp");
-  image[3][1]=SDL_LoadBMP("credits.bmp");
-  image[3][2]=SDL_LoadBMP("credits_bold.bmp");
-  image[3][3]=SDL_LoadBMP("credits_click.bmp");
-  clear=SDL_LoadBMP("launcher_clear.bmp");
-  background=SDL_LoadBMP("launcher_background_image.bmp");
-  apply_surface(0,0,background,screen);
-  apply_surface(450,600-80,image[1][2],screen);
-  apply_surface(450,600,image[2][1],screen);
-  apply_surface(450,680,image[3][1],screen);
-  SDL_Flip(screen);
-  poz=1;
-  while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
-           {
-            up=getkey(VK_UP);
-            down=getkey(VK_DOWN);
-            if(up==1 && poz>1)
-               {
-                apply_surface(450,680-80*(N-poz),clear,screen);
-                apply_surface(450,680-80*(N-poz),image[poz][1],screen);
-                poz--;
-                apply_surface(450,520+80*(poz-1),clear,screen);
-                apply_surface(450,520+80*(poz-1),image[poz][2],screen);
-               }
-            if(down==1 && poz<N)
-               {
-                apply_surface(450,520+80*(poz-1),clear,screen);
-                apply_surface(450,520+80*(poz-1),image[poz][1],screen);
-                poz++;
-                apply_surface(450,680-80*(N-poz),clear,screen);
-                apply_surface(450,680-80*(N-poz),image[poz][2],screen);
-               }
-            SDL_Delay(100);
-            SDL_Flip(screen);
-           }
+{
+ first:
+ int N=3;
+ SDL_Init(SDL_INIT_EVERYTHING);
+ TTF_Init();
+ font=TTF_OpenFont("font2.ttf",50);
+ screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
+ image[1][1]=SDL_LoadBMP("single_player_mode.bmp");
+ image[1][2]=SDL_LoadBMP("single_player_mode_bold.bmp");
+ image[1][3]=SDL_LoadBMP("single_player_mode_click.bmp");
+ image[2][1]=SDL_LoadBMP("duel_mode.bmp");
+ image[2][2]=SDL_LoadBMP("duel_mode_bold.bmp");
+ image[2][3]=SDL_LoadBMP("duel_mode_click.bmp");
+ image[3][1]=SDL_LoadBMP("credits.bmp");
+ image[3][2]=SDL_LoadBMP("credits_bold.bmp");
+ image[3][3]=SDL_LoadBMP("credits_click.bmp");
+ clear=SDL_LoadBMP("launcher_clear.bmp");
+ background=SDL_LoadBMP("launcher_background_image.bmp");
+ apply_surface(0,0,background,screen);
+ apply_surface(450,600-80,image[1][2],screen);
+ apply_surface(450,600,image[2][1],screen);
+ apply_surface(450,680,image[3][1],screen);
+ SDL_Flip(screen);
+ poz=1;
+ while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
+	  {
+	   up=getkey(VK_UP);
+	   down=getkey(VK_DOWN);
+	   if(up==1 && poz>1)
+		 {
+		  apply_surface(450,680-80*(N-poz),clear,screen);
+		  apply_surface(450,680-80*(N-poz),image[poz][1],screen);
+		  poz--;
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][2],screen);
+		 }
+	   if(down==1 && poz<N)
+		 {
+		  apply_surface(450,520+80*(poz-1),clear,screen);
+		  apply_surface(450,520+80*(poz-1),image[poz][1],screen);
+		  poz++;
+		  apply_surface(450,680-80*(N-poz),clear,screen);
+		  apply_surface(450,680-80*(N-poz),image[poz][2],screen);
+		 }
+	   SDL_Delay(100);
+	   SDL_Flip(screen);
+	  }
  if(getkey(VK_ESCAPE)==0)
     {
      apply_surface(450,520+80*(poz-1),clear,screen);
 	apply_surface(450,520+80*(poz-1),image[poz][3],screen);
      switch(poz)
 	       {
-	        case 1:break;
+	        case 1:
+	               {
+	                clear=SDL_LoadBMP("launcher_clear.bmp");
+                     background=SDL_LoadBMP("launcher_background_image.bmp");
+                     DuelMode_player_menu();
+				 FILE *file=fopen("DuelMode_status.sts","w");
+                     fprintf(file,"%d %d",difficulty,computer);
+                     fclose(file);
+                     if(computer!=1)
+				    system("shop.exe");
+				 else
+				    system("shop1.exe");
+				 system("a.exe");
+				 break;
+	               }
 	        case 2:
                     {
+                     clear=SDL_LoadBMP("launcher_clear.bmp");
+                     background=SDL_LoadBMP("launcher_background_image.bmp");
+				 FILE *file=fopen("DuelMode_status.sts","w");
+                     fprintf(file,"0 0");
+                     fclose(file);
 				 system("shop.exe");
 				 system("shop1.exe");
 				 system("a.exe");
@@ -125,7 +227,7 @@ int main( int argc, char* args[] )
                      apply_surface(560,450,message,screen);
                      while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0);
                      Mix_CloseAudio();
-                     goto mmain;
+                     goto first;
                      break;
                     }
 	       }

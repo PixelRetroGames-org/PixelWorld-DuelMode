@@ -46,6 +46,12 @@ int map[LIN_MAX+3][COL_MAX+3],obs[LIN_MAX+3][COL_MAX+3];
 SDL_Surface *image=NULL;
 SDL_Surface *screen=NULL;
 SDL_Surface *background=NULL;
+void initialize_game()
+{
+ FILE *f1=fopen("DuelMode_status.sts","r");
+ fscanf(f1,"%d %d",&difficulty,&computer);
+ fclose(f1);
+}
 class player
 {
  public:
@@ -899,47 +905,6 @@ void clear_arena_wall()
 	}
  load_level(level);
 }
-void player_menu()
-{
- SDL_Surface *bck=NULL,*image[5][5];
- image[1][1]=TTF_RenderText_Solid(font,"Player1 vs Computer",color1);
- image[1][2]=TTF_RenderText_Solid(font,"> Player1 vs Computer",color2);
- image[2][1]=TTF_RenderText_Solid(font,"Computer vs Player2 ",color1);
- image[2][2]=TTF_RenderText_Solid(font,"> Computer vs Player2",color2);
- int N=2;
- int poz;
- clear=SDL_LoadBMP("launcher_clear.bmp");
- background=SDL_LoadBMP("wooden_background.bmp");
- apply_surface(0,0,background,screen);
- apply_surface(450,600-80,image[1][2],screen);
- apply_surface(450,600,image[2][1],screen);
- apply_surface(450,680,image[3][1],screen);
- SDL_Flip(screen);
- poz=1;
- while(getkey(VK_RETURN)==0 && getkey(VK_ESCAPE)==0)
-	  {
-	   up=getkey(VK_UP);
-	   down=getkey(VK_DOWN);
-	   if(up==1 && poz>1)
-		 {
-		  apply_surface(450,680-80*(N-poz),clear,screen);
-		  apply_surface(450,680-80*(N-poz),image[poz][1],screen);
-		  poz--;
-		  apply_surface(450,520+80*(poz-1),clear,screen);
-		  apply_surface(450,520+80*(poz-1),image[poz][2],screen);
-		 }
-	   if(down==1 && poz<N)
-	      {
-		  apply_surface(450,520+80*(poz-1),clear,screen);
-		  apply_surface(450,520+80*(poz-1),image[poz][1],screen);
-		  poz++;
-		  apply_surface(450,680-80*(N-poz),clear,screen);
-		  apply_surface(450,680-80*(N-poz),image[poz][2],screen);
-		 }
-	   SDL_Delay(100);
-	   SDL_Flip(screen);
-	  }
-}
 void computer_move_player(int difficulty,int pl)
 {
  int other_player=1;
@@ -991,6 +956,8 @@ void computer_move_player(int difficulty,int pl)
                     up=down=left=right=0;
                  power2=0;
                  power1=power3=0;
+                 mana_pot=0;
+                 hp_pot=0;
                  break;
                 }
          case 2:
@@ -1032,6 +999,8 @@ void computer_move_player(int difficulty,int pl)
                      else
                         atack_left=atack_right=1;
                     }
+                 mana_pot=0;
+                 hp_pot=0;
                  break;
                 }
          case 3:
@@ -1066,6 +1035,8 @@ void computer_move_player(int difficulty,int pl)
                         atack_left=atack_right=1;
                      power2=1;
                     }
+                 mana_pot=0;
+                 hp_pot=0;
                  power1=power3=0;
                  break;
                 }
@@ -1105,13 +1076,14 @@ void computer_move_player(int difficulty,int pl)
                      power2=1;
                     }
                  power1=power3=0;
+                 mana_pot=0;
+                 hp_pot=0;
                  break;
                 }
         }
 }
 int main( int argc, char* args[] )
 {
- //player_menu();
  player[1].hp=HP1;
  player[2].hp=HP1,player[2].mana=HP1,player[1].mana=HP1;
  player[1].lin=LIN_MAX/2,player[1].col=COL_MAX/2-5,player[2].lin=LIN_MAX/2,player[2].col=COL_MAX/2+5;
@@ -1160,8 +1132,15 @@ int main( int argc, char* args[] )
  print_level();
  int start_t=0;
  put_arena_wall();
- player[1].load_save("player1",0);
- player[2].load_save("player2",27*40);
+ if(computer!=1)
+    {
+    	player[1].load_save("player1",0);
+    }
+ else
+    {
+    	player[2].load_save("player2",27*40);
+    }
+ player[computer].money=difficulty*300;
  player[1].prefix[0]='w';
  player[1].prefix[1]='a';
  player[1].prefix[2]='r';
@@ -1180,6 +1159,7 @@ int main( int argc, char* args[] )
  player[2].prefix[6]='r';
  player[1].skin_state=1;
  player[2].skin_state=0;
+ initialize_game();
  while(keystates[SDLK_ESCAPE]==NULL && player[1].hp>0 && player[2].hp>0)
        {
         obs[player[1].lin][player[1].col]=3;
@@ -1262,7 +1242,7 @@ int main( int argc, char* args[] )
                 if(player[2].mana>100)
                    player[2].mana=100;
                 player[2].print_mana(2,27);
-                clear=SDL_LoadBMP("inventory_clear.bmp");
+                clear=SDL_LoadBMP("pots_clear.bmp");
                 apply_surface(80+27*40,120,clear,screen);
                 int a=player[2].items[5][2];
 			 int i=0,i1,j;
@@ -1299,7 +1279,7 @@ int main( int argc, char* args[] )
                 if(player[2].hp>100)
                    player[2].hp=100;
                 player[2].print_hp(1,27);
-                clear=SDL_LoadBMP("inventory_clear.bmp");
+                clear=SDL_LoadBMP("pots_clear.bmp");
                 apply_surface(20+27*40,120,clear,screen);
                 int a=player[2].items[5][1];
 			 int i=0,i1,j;
@@ -1324,7 +1304,7 @@ int main( int argc, char* args[] )
 			 TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
 			 SDL_Color color2={255,294,10};
 			 image=TTF_RenderText_Solid(font2,v1,color2);
-		      apply_surface(27*40,120,image,screen);
+		      apply_surface(20+27*40,120,image,screen);
                }
            }
         if(power1==1 && player[2].mana>=10 && player[2].hp<=90)
@@ -1505,7 +1485,7 @@ int main( int argc, char* args[] )
                 if(player[1].mana>100)
                    player[1].mana=100;
                 player[1].print_mana(2,0);
-                clear=SDL_LoadBMP("inventory_clear.bmp");
+                clear=SDL_LoadBMP("pots_clear.bmp");
                 apply_surface(80,120,clear,screen);
                 int a=player[1].items[5][2];
 			 int i=0,i1,j;
@@ -1542,7 +1522,7 @@ int main( int argc, char* args[] )
                 if(player[1].hp>100)
                    player[1].hp=100;
                 player[1].print_hp(1,0);
-                clear=SDL_LoadBMP("inventory_clear.bmp");
+                clear=SDL_LoadBMP("pots_clear.bmp");
                 apply_surface(20,120,clear,screen);
                 int a=player[1].items[5][1];
 			 int i=0,i1,j;
@@ -1781,8 +1761,10 @@ int main( int argc, char* args[] )
         player[2].xp+=50;
         player[1].xp+=50;
        }
- player[1].save("player1");
- player[2].save("player2");
+ if(computer!=1)
+    player[1].save("player1");
+ else
+    player[2].save("player2");
  Mix_CloseAudio();
  Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
  sound=Mix_LoadWAV("win.wav");
