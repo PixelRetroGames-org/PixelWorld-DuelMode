@@ -12,6 +12,7 @@ int player2_items[10][10],prices[10][10];
 int player2_items_equipped[7],player_items_equipped[7];
 SDL_Surface *background,*screen,*image;
 TTF_Font *font=NULL;
+Uint8 *keystates=SDL_GetKeyState(NULL);
 int player2_attack,player2_block,player2_fire_res,player2_fire_dmg;
 void load_prices()
 {
@@ -814,12 +815,13 @@ void shop(int m,int n)
  TTF_Font *font2=TTF_OpenFont("font2.ttf",20);
  while(exit==0)
 	  {
-	   exit=getkey(VK_ESCAPE);
+	   SDL_PumpEvents();
+	   exit=keystates[SDLK_ESCAPE];
 	   down=up=left=right=0;
-	   up=getkey(VK_LEFT);
-	   down=getkey(VK_RIGHT);
-	   left=getkey(VK_UP);
-	   right=getkey(VK_DOWN);
+	   up=keystates[SDLK_LEFT];
+	   down=keystates[SDLK_RIGHT];
+	   left=keystates[SDLK_UP];
+	   right=keystates[SDLK_DOWN];
 	   image=SDL_LoadBMP("vertical_black_item_layer.bmp");
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
 	   apply_surface((y-1)*160+160,x*80+(x-1)*40,image,screen);
@@ -841,7 +843,7 @@ void shop(int m,int n)
 	   apply_surface((y-1)*160,x*80+(x-1)*40,image,screen);
         apply_surface((y-1)*160,x*80+(x-1)*40+80-3,image,screen);
         SDL_Flip(screen);
-        enter=getkey(VK_RETURN);
+        enter=keystates[SDLK_RETURN];
         if(enter==1)
            {
             if(player2_money>=prices[x][y] && player2_items[x][y]==0 && (x<=4 || (x==5 && y>2)))

@@ -31,12 +31,12 @@ int modul(int a)
     return a;
 }
 Mix_Chunk *sound;
-char level[100]={'b'};
+char level[100]={'a'};
 Mix_Music *music=NULL;
 SDL_Color textColor={0,900,200}, color1={0,900,0},color2={450,0,0},color3{240,240,70};
 TTF_Font *font=NULL;
 SDL_Surface *message=NULL,*clear=NULL,*burn=NULL;
-char pp,mute=1;
+char pp,mute=0;
 int computer=0,difficulty=1;
 Uint8 *keystates=SDL_GetKeyState(NULL);
 int time_ex,beg1,beg2,end1,end2,t,t1,t2,flag_player;
