@@ -1093,6 +1093,7 @@ int main( int argc, char* args[] )
  //screen=SDL_SetVideoMode((LIN_MAX+1)*40,(COL_MAX+1)*40,32,SDL_FULLSCREEN/*SDL_SWSURFACE*/);
  screen=SDL_SetVideoMode(0,0,32,SDL_FULLSCREEN);
  TTF_Init();
+ initialize_game();
  font=TTF_OpenFont("font2.ttf",40);
  music=Mix_LoadMUS("bck.wav");
  clear=SDL_LoadBMP("wooden_background.bmp");
@@ -1136,7 +1137,7 @@ int main( int argc, char* args[] )
     {
     	player[1].load_save("player1",0);
     }
- else
+ if(computer!=2)
     {
     	player[2].load_save("player2",27*40);
     }
@@ -1159,7 +1160,6 @@ int main( int argc, char* args[] )
  player[2].prefix[6]='r';
  player[1].skin_state=1;
  player[2].skin_state=0;
- initialize_game();
  while(keystates[SDLK_ESCAPE]==NULL && player[1].hp>0 && player[2].hp>0)
        {
         obs[player[1].lin][player[1].col]=3;
@@ -1763,7 +1763,7 @@ int main( int argc, char* args[] )
        }
  if(computer!=1)
     player[1].save("player1");
- else
+ if(computer!=2)
     player[2].save("player2");
  Mix_CloseAudio();
  Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
