@@ -23,6 +23,7 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
 void DuelMode_player_menu()
 {
  SDL_Surface *bck=NULL,*image[5][5];
+ SDL_Delay(200);
  image[1][1]=SDL_LoadBMP("Player1 vs Computer.bmp");
  image[1][2]=SDL_LoadBMP("Player1 vs Computer_bold.bmp");
  image[1][3]=SDL_LoadBMP("Player1 vs Computer_click.bmp");
