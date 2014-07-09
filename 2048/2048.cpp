@@ -3,7 +3,10 @@
 #include "SDL/SDL_mixer.h"
 #include<cstdio>
 #include<ctime>
+#include<alex.h>
 #define SLEEP 100
+struct cell{int lin,col;};
+cell free_cells[17];
 SDL_Surface *screen,*image;
 int table[10][10],table_copy[10][10];
 long long Score,HiScore,NewScore,Undo=1;
@@ -514,7 +517,7 @@ void load_hiscore()
     {
     	save=fopen("highscore.txt","w");
     	fprintf(save,"0");
-     HiScore=0;
+     HiScore=0;   Undo=1;
     	fclose(save);
     }
  else
@@ -605,6 +608,7 @@ void copy_table()
 }
 int main(int argc,char* args[])
 {
+ HideWindow();
  first:
  int x=0,i=0,j=0,frecv=0,x1=0;
  SDL_Init(SDL_INIT_EVERYTHING);
@@ -655,7 +659,7 @@ int main(int argc,char* args[])
 	       for(i=1;i<=4;i++)
 	           for(j=1;j<=4;j++)
 			     table[i][j]=0;
-	       Score=0;
+	       Score=0;   Undo=1;
 	       pp=0;
 	       goto first;
 	      }
@@ -743,22 +747,27 @@ int main(int argc,char* args[])
             if(x1==1)
                {
 			 frecv++;
-			 i=rand()%4+1;
-			 j=rand()%4+1;
-			 while(table[i][j]!=0)
-				  {
-				   i=rand()%4+1;
-				   j=rand()%4+1;
-                      }
+			 int cont=0;
+			 for(i=1;i<=4;i++)
+			     for(j=1;j<=4;j++)
+			         {
+			         	if(table[i][j]==0)
+			         	   {
+					    cont++;
+					    free_cells[cont].lin=i;
+					    free_cells[cont].col=j;
+			         	   }
+			         }
+			 int cc=rand()%cont+1;
 			 if(frecv%7==0)
 			    {
-				table[i][j]=4;
+				table[free_cells[cc].lin][free_cells[cc].col]=4;
 				frecv=0;
 				image=SDL_LoadBMP("score_clear.bmp");
                     apply_surface(640,440,image,screen);
 			    }
 			 else
-			    table[i][j]=2;
+			    table[free_cells[cc].lin][free_cells[cc].col]=2;
                }
             print_scores();
            }
@@ -785,7 +794,7 @@ int main(int argc,char* args[])
 	    for(i=1;i<=4;i++)
 	        for(j=1;j<=4;j++)
 			  table[i][j]=0;
-	    Score=0;
+	    Score=0;   Undo=1;
 	    pp=0;
 	    goto first;
 	   }

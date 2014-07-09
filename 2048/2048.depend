@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1404420265 source:c:\documents and settings\alexx\2048\2048.cpp
+1404477938 source:c:\documents and settings\alexx\2048\2048.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	"SDL/SDL_mixer.h"
