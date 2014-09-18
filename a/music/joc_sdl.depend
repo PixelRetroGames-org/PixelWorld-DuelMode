@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1393786137 source:c:\programare\joc_sdl\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	<string>
+	<cstdio>
+	<windows.h>
+	<cstdlib>
+	<conio.h>
+	<alex.h>
+

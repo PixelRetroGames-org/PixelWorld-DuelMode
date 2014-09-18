@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1411057007 source:c:\documents and settings\alexx\fastpixels\source.cpp
+	<cstdio>
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	"SDL/SDL_image.h"
+	<windows.h>
+	<alex.h>
+	<ctime>
+	<string>
+
