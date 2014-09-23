@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1411057007 source:c:\documents and settings\alexx\fastpixels\source.cpp
+1411496660 source:c:\documents and settings\alexx\fastpixels\source.cpp
 	<cstdio>
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"

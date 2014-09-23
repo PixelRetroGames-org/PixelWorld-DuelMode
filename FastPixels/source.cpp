@@ -11,7 +11,7 @@
 SDL_Surface *car1,*car2,*screen,*background;
 SDL_Surface *white_line[10],*asphalt[10];
 int frame=1,aframe=1,tme,tme1;
-int speed_t=1;
+int speed_t=0;
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
 {
  SDL_Rect offset;
@@ -90,7 +90,7 @@ int main(int argc,char *args[])
  TTF_Init();
  load_all();
  apply_surface(0,0,asphalt[1],screen);
- apply_surface(400,200,car1,screen);
+ apply_surface(400,180,car1,screen);
  apply_surface(400,400,car2,screen);
  SDL_Flip(screen);
  while(getkey(VK_ESCAPE)==0)
@@ -100,7 +100,7 @@ int main(int argc,char *args[])
            {
             move_asphalt(aframe);
             move_line(frame);
-            apply_surface(400,200,car1,screen);
+            apply_surface(400,180,car1,screen);
             apply_surface(400,400,car2,screen);
             SDL_Flip(screen);
             frame++;
