@@ -10,3 +10,19 @@
 	<ctime>
 	<string>
 
+1411638682 source:c:\users\elev\desktop\fastpixels\source.cpp
+	<cstdio>
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	"SDL/SDL_image.h"
+	<windows.h>
+	"alex.h"
+	<ctime>
+	<string>
+
+1400611618 c:\users\elev\desktop\fastpixels\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+

@@ -4,13 +4,13 @@
 #include "SDL/SDL_mixer.h"
 #include "SDL/SDL_image.h"
 #include<windows.h>
-#include<alex.h>
+#include "alex.h"
 #include<ctime>
 #include<string>
 // 1280x800
-SDL_Surface *car1,*car2,*screen,*background;
+SDL_Surface *car1[4],*car2[4],*screen,*background;
 SDL_Surface *white_line[10],*asphalt[10];
-int frame=1,aframe=1,tme,tme1;
+int frame=1,aframe=1,tme,tme1,car1_state,car2_state;
 int speed_t=0;
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination )
 {
@@ -79,8 +79,10 @@ void load_all()
  asphalt[7]=make_it_transparent("images/asphalt7.bmp");
  asphalt[8]=make_it_transparent("images/asphalt8.bmp");
  asphalt[9]=make_it_transparent("images/asphalt9.bmp");
- car1=make_it_transparent("images/cars/car1.bmp");
- car2=make_it_transparent("images/cars/car2.bmp");
+ car1[1]=make_it_transparent("images/cars/green1.bmp");
+ car2[1]=make_it_transparent("images/cars/purple1.bmp");
+ car1[2]=make_it_transparent("images/cars/green2.bmp");
+ car2[2]=make_it_transparent("images/cars/purple2.bmp");
 }
 int main(int argc,char *args[])
 {
@@ -90,26 +92,30 @@ int main(int argc,char *args[])
  TTF_Init();
  load_all();
  apply_surface(0,0,asphalt[1],screen);
- apply_surface(400,180,car1,screen);
- apply_surface(400,400,car2,screen);
+ apply_surface(400,180,car1[1],screen);
+ apply_surface(400,400,car2[1],screen);
  SDL_Flip(screen);
  while(getkey(VK_ESCAPE)==0)
        {
-        tme=GetTickCount();
+        tme=time(NULL);
         if(tme-tme1>=speed_t)
            {
             move_asphalt(aframe);
             move_line(frame);
-            apply_surface(400,180,car1,screen);
-            apply_surface(400,400,car2,screen);
+            apply_surface(400,180,car1[car1_state%2+1],screen);
+            apply_surface(400,400,car2[car2_state%2+1],screen);
             SDL_Flip(screen);
             frame++;
             if(frame>=10)
-               frame=1;
+               {
+                frame=1;
+                car1_state++;
+                car2_state++;
+               }
             aframe++;
             if(aframe>=10)
                aframe=1;
-            tme1=GetTickCount();
+            tme1=time(NULL);
            }
        }
 }
