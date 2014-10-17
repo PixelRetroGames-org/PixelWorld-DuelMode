@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1394700017 source:e:\joc_sdl\a\music\music.cpp
+	"stdlib.h"
+	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+
+1395066080 source:i:\joc_sdl\a\music\music.cpp
+	"stdlib.h"
+	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+

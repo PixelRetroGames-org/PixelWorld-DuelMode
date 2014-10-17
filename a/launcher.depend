@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1399886386 source:e:\sursa joc sdl + shop\a\launcher.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	"alex.h"
+
+1393268489 e:\sursa joc sdl + shop\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1400226114 source:c:\users\elev\a\launcher.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	"alex.h"
+	<windows.h>
+
+1400136571 c:\users\elev\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1403429133 source:c:\documents and settings\alexx\a\launcher.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	"alex.h"
+	<windows.h>
+
+1400611618 c:\documents and settings\alexx\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+

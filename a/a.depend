@@ -1,0 +1,134 @@
+# depslib dependency file v1.0
+1394097298 source:f:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	<string>
+	<cstdio>
+	<windows.h>
+	<cstdlib>
+	<conio.h>
+	"alex.h"
+
+1393264889 f:\joc_sdl\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1395302956 source:e:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1393264889 e:\joc_sdl\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1395080473 source:i:\joc_sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1398171632 source:d:\sursa joc sdl\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1399547497 source:e:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1398326072 source:d:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1399547497 source:f:\sursa joc sdl + shop\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+
+1402561174 source:c:\users\elev\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1402555791 c:\users\elev\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1403548365 source:c:\documents and settings\alexx\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400611618 c:\documents and settings\alexx\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1400581902 source:/home/cioltanalexandru7/a/a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1399981286 /home/cioltanalexandru7/a/alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
+1400615811 source:d:\a\a.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400551402 d:\a\pixelworld.h
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+	<cstdio>
+	<ctime>
+	"alex.h"
+
+1400611618 d:\a\alex.h
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+

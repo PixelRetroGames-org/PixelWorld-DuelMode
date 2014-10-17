@@ -1,0 +1,4 @@
+Salut,
+Am 13 ani ,sunt din Bucuresti, elev la Colegiul National de Informatica Tudor Vianu. Eu si niste colegi am facut un joc pe care am vrea sa-l punem pe un site de jocuri si cum Clopotel e unul dintre cele mai populare site-uri de jocuri din Romania, am hotarat sa va intrebam daca ne puteti ajuta sa punem jocul pe site-ul vostru. Jocul e facut in C++ cu SDL.
+Multumesc,
+                  Alex Cioltan
